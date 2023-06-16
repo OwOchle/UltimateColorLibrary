@@ -17,4 +17,8 @@ internal fun Float.toIntFloor(): Int {
     return floor(this).toInt()
 }
 
+internal fun Float.toRadians(): Float {
+    return Math.toRadians(this.toDouble()).toFloat()
+}
+
 internal const val TWO_PI = 2 * Math.PI.toFloat()

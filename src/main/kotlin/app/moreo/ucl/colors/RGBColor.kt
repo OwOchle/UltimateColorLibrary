@@ -6,7 +6,8 @@ import app.moreo.ucl.enums.ColorType
 import app.moreo.ucl.exceptions.ColorTypeException
 import app.moreo.ucl.exceptions.GamutException
 import app.moreo.ucl.interfaces.Interpolatable
-import app.moreo.ucl.utils.toIntFloor
+import app.moreo.ucl.utils.toRadians
+import kotlin.math.abs
 
 class RGBColor(var red: Float, var green: Float, var blue: Float, override var alpha: Float = 1f): Color, Interpolatable<RGBColor> {
 
@@ -17,7 +18,7 @@ class RGBColor(var red: Float, var green: Float, var blue: Float, override var a
     @Suppress("UNCHECKED_CAST")
     override fun <T : Color> toColor(color: ColorType<T>): T {
         return when (color) {
-            ColorType.HSV -> {
+            ColorType.HSV, ColorType.HSB -> {
                 // Hue is in degrees
                 val value = maxOf(red, green, blue)
                 val xMin = minOf(red, green, blue)
@@ -35,17 +36,32 @@ class RGBColor(var red: Float, var green: Float, var blue: Float, override var a
                     else -> chroma / value
                 }
 
-                return HSVColor(hue.toInt(), (saturation * 100).toIntFloor(), (value * 100).toIntFloor()) as T
+                return HSVColor(hue.toRadians(), saturation, value) as T
             }
             ColorType.HSL -> {
-                TODO("RGB to HSL")
+                val xMax = maxOf(red, green, blue)
+                val xMin = minOf(red, green, blue)
+                val chroma = xMax - xMin
+                val lightness = (xMax + xMin) / 2
+
+                val hue = when {
+                    chroma == 0f -> 0f
+                    xMax == red -> 60 * ((green - blue) / chroma).mod(6f)
+                    xMax == green -> 60 * (((blue - red) / chroma) + 2)
+                    else -> 60 * (((red - green) / chroma) + 4)
+                }
+
+                println("Hue: $hue")
+
+                val saturation = when (lightness) {
+                    0f, 1f -> 0f
+                    else -> chroma / (1 - abs(2 * lightness - 1))
+                }
+
+                return HSLColor(hue.toRadians(), saturation, lightness) as T
             }
             ColorType.RGB -> {
-                @Suppress("UNCHECKED_CAST")
                 this as T
-            }
-            ColorType.HSB -> {
-                TODO("RGB to HSV")
             }
             else -> {
                 throw ColorTypeException("Color type not supported")

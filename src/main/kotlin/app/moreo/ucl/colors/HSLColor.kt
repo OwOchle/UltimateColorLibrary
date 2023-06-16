@@ -42,8 +42,10 @@ class HSLColor(hue: Float, var saturation: Float, var lightness: Float, override
     @Suppress("UNCHECKED_CAST")
     override fun <T : Color> toColor(color: ColorType<T>): T {
        return when (color) {
-           ColorType.HSV -> {
-                TODO("HSL to HSV")
+           ColorType.HSV, ColorType.HSB -> {
+               val value = lightness + saturation * minOf(lightness, 1 - lightness)
+               val saturation = if (value == 0f) 0f else 2 * (1 - (lightness / value))
+               return HSVColor(hue, saturation, value) as T
            }
            ColorType.HSL -> {
                this as T
@@ -53,21 +55,18 @@ class HSLColor(hue: Float, var saturation: Float, var lightness: Float, override
                val hPrime = degreesHue / 60f
                val x = c * (1 - abs(hPrime.mod(2f) - 1))
 
-                val (r1, g1, b1) = when {
-                     hPrime < 1 -> Triple(c, x, 0f)
-                     hPrime < 2 -> Triple(x, c, 0f)
-                     hPrime < 3 -> Triple(0f, c, x)
-                     hPrime < 4 -> Triple(0f, x, c)
-                     hPrime < 5 -> Triple(x, 0f, c)
-                     else -> Triple(c, 0f, x)
-                }
+               val (r1, g1, b1) = when {
+                   hPrime < 1 -> Triple(c, x, 0f)
+                   hPrime < 2 -> Triple(x, c, 0f)
+                   hPrime < 3 -> Triple(0f, c, x)
+                   hPrime < 4 -> Triple(0f, x, c)
+                   hPrime < 5 -> Triple(x, 0f, c)
+                   else -> Triple(c, 0f, x)
+               }
 
-                val m = lightness - c / 2f
+               val m = lightness - c / 2f
 
                return RGBColor(r1 + m, g1 + m, b1 + m) as T
-           }
-           ColorType.HSB -> {
-               TODO("HSL to HSV")
            }
            else -> {
                throw ColorTypeException("Color type not supported")
