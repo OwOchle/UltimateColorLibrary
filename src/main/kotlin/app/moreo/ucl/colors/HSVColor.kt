@@ -13,12 +13,12 @@ import kotlin.math.abs
  * @property hue hue in radians
  * @property saturation saturation between 0 and 1
  * @property value value between 0 and 1
+ * @property alpha alpha between 0 and 1
  *
  * @param hue hue in radians
  * @param saturation saturation between 0 and 1
  * @param value value between 0 and 1
- *
- *
+ * @param alpha alpha between 0 and 1
  */
 class HSVColor(var hue: Float, var saturation: Float, var value: Float, override var alpha: Float = 1f): Color, Interpolatable<HSVColor> {
 
@@ -34,17 +34,20 @@ class HSVColor(var hue: Float, var saturation: Float, var value: Float, override
      * @property hue hue in radians
      * @property saturation saturation between 0 and 1
      * @property value value between 0 and 1
+     * @property alpha alpha between 0 and 1
      *
      * @param hue hue in degrees
      * @param saturation saturation between 0 and 100
      * @param value value between 0 and 100
-     *
-     * Note: HSV = HSB
+     * @param alpha alpha between 0 and 1
      */
     constructor(hue: Int, saturation: Int, value: Int, alpha: Float = 1f): this(Math.toRadians(hue.toDouble()).toFloat(), saturation / 100f, value / 100f, alpha)
 
+    @Deprecated("Use toSpace instead", replaceWith = ReplaceWith("toSpace(color)"))
+    override fun <T : Color> toColor(color: ColorType<T>): T = toSpace(color)
+
     @Suppress("UNCHECKED_CAST")
-    override fun <T : Color> toColor(color: ColorType<T>): T {
+    override fun <T : Color> toSpace(color: ColorType<T>): T {
         return when (color) {
             ColorType.HSV, ColorType.HSB -> {
                 this as T
@@ -84,6 +87,6 @@ class HSVColor(var hue: Float, var saturation: Float, var value: Float, override
     }
 
     override fun rangeTo(other: Color): ColorInterpolation<HSVColor> {
-        return ColorInterpolation(this, other.toColor(ColorType.HSV))
+        return ColorInterpolation(this, other.toSpace(ColorType.HSV))
     }
 }

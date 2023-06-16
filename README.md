@@ -125,5 +125,15 @@ class Main {
 - LAB
 - LCH
 
+## Planned Features
+- [ ] Kotlin Multiplatform
+- [ ] Color conversion to other color types (i.e. Bukkit, JavaFX, etc.)
+- [ ] String parsing (i.e. #FF0000, rgb(255, 0, 0), etc.)
+- [ ] String export (i.e. #FF0000, rgb(255, 0, 0), etc.)
+
+
+## Links
+- [Javadoc](https://docs.moreo.app/ucl/javadoc)
+
 ## License
 <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.

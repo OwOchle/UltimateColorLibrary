@@ -22,8 +22,8 @@ class ColorInterpolation<T: Color> (val start: Color, val end: Color): Iterable<
     }
         set(value) {
             if (field != value) {
-                actualStart = start.toColor(value)
-                actualEnd = end.toColor(value)
+                actualStart = start.toSpace(value)
+                actualEnd = end.toSpace(value)
                 field = value
             }
         }
@@ -31,7 +31,7 @@ class ColorInterpolation<T: Color> (val start: Color, val end: Color): Iterable<
     private var steps = Color.DEFAULT_COLOR_INTERPOLATOR_STEPS
 
     private var actualStart = start
-    private var actualEnd = end.toColor(space)
+    private var actualEnd = end.toSpace(space)
 
     private var numberInterpolator: (Float, Float, Float) -> Float = ::interpolate
 

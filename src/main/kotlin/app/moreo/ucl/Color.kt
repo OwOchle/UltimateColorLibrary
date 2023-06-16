@@ -11,6 +11,8 @@ interface Color {
 
     var alpha: Float
 
+    @Deprecated("Use toSpace instead", ReplaceWith("toSpace(color)"))
     fun <T: Color> toColor(color: ColorType<T>): T
 
+    fun <T: Color> toSpace(color: ColorType<T>): T
 }

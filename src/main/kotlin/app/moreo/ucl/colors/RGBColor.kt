@@ -9,14 +9,39 @@ import app.moreo.ucl.interfaces.Interpolatable
 import app.moreo.ucl.utils.toRadians
 import kotlin.math.abs
 
+/**
+ * RGB color representation
+ * @property red red between 0 and 1
+ * @property green green between 0 and 1
+ * @property blue blue between 0 and 1
+ *
+ * @param red red between 0 and 1
+ * @param green green between 0 and 1
+ * @param blue blue between 0 and 1
+ * @param alpha alpha between 0 and 1
+ */
 class RGBColor(var red: Float, var green: Float, var blue: Float, override var alpha: Float = 1f): Color, Interpolatable<RGBColor> {
 
+    /**
+     * RGB color representation
+     * @property red red between 0 and 1
+     * @property green green between 0 and 1
+     * @property blue blue between 0 and 1
+     *
+     * @param red red between 0 and 255
+     * @param green green between 0 and 255
+     * @param blue blue between 0 and 255
+     * @param alpha alpha between 0 and 1
+     */
     constructor(red: Short, green: Short, blue: Short, alpha: Float = 1f) : this(red / 255f, green / 255f, blue / 255f, alpha) {
         if (minOf(red, green, blue) < 0 || maxOf(red, green, blue) > 255) throw GamutException("RGB varues must be between 0 and 255")
     }
 
+    @Deprecated("Use toSpace instead", replaceWith = ReplaceWith("toSpace(color)"))
+    override fun <T : Color> toColor(color: ColorType<T>): T = toSpace(color)
+
     @Suppress("UNCHECKED_CAST")
-    override fun <T : Color> toColor(color: ColorType<T>): T {
+    override fun <T : Color> toSpace(color: ColorType<T>): T {
         return when (color) {
             ColorType.HSV, ColorType.HSB -> {
                 // Hue is in degrees
@@ -74,6 +99,6 @@ class RGBColor(var red: Float, var green: Float, var blue: Float, override var a
     }
 
     override fun rangeTo(other: Color): ColorInterpolation<RGBColor> {
-        return ColorInterpolation(this, other.toColor(ColorType.RGB))
+        return ColorInterpolation(this, other.toSpace(ColorType.RGB))
     }
 }
