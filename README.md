@@ -12,15 +12,19 @@ As of now, the library is Ultimate only by name, but I hope to be able to suppor
 <details>
 <summary>Kotlin</summary>
 
-````kotlin
-````
+```kotlin
+```
 </details>
 
 <details>
 <summary>Java</summary>
 
-````java
-````
+```java
+class Main {
+    public static void main(String[] args) {
+    }
+}
+```
 </details>
 </div>
 
@@ -29,18 +33,25 @@ Just create the color with the space you need. i.e. :
 <details>
 <summary>Kotlin</summary>
 
-````kotlin
+```kotlin
 import app.moreo.ucl.colors.RGBColor
 
 val color = RGBColor(1.0, 0.0, 0.0, 0.0)
-````
+```
 </details>
 
 <details>
 <summary>Java</summary>
 
-````java
-````
+```java
+import app.moreo.ucl.colors.RGBColor;
+
+class Main {
+    public static void main(String[] args) {
+        RGBColor color = new RGBColor(1.0, 0.0, 0.0, 0.0);
+    }
+}
+```
 </details>
 
 ### Color conversion
@@ -49,19 +60,19 @@ If you need to transform a color into another, just use the `toColor` method and
 <details>
 <summary>Kotlin</summary>
 
-````kotlin
+```kotlin
 import app.moreo.ucl.enums.ColorType
 import app.moreo.ucl.colors.*
 
 val color: RGBColor = RGBColor(1.0, 1.0, 0.0, 1.0) // RGBColor(red=1.0, green=1.0, blue=0.0, alpha=1.0)
 val hsvColor: HSVColor = color.toColor(ColorType.HSV) // HSVColor(hue=1.0471976, saturation=1.0, value=1.0, alpha=1.0)
-````
+```
 </details>
 
 <details>
 <summary>Java</summary>
 
-````java
+```java
 import app.moreo.ucl.enums.ColorType;
 import app.moreo.ucl.colors.*;
 
@@ -71,7 +82,7 @@ class Main {
         HSVColor hsvColor = color.toColor(ColorType.HSV); // HSVColor(hue=1.0471976, saturation=1.0, value=1.0, alpha=1.0)
     }
 }
-````
+```
 </details>
 
 ### Color interpolation
@@ -89,7 +100,7 @@ You can change the interpolation space with the `space` method. It takes a `Colo
 <details>
 <summary>Kotlin</summary>
 
-````kotlin
+```kotlin
 import app.moreo.ucl.enums.ColorType
 import app.moreo.ucl.colors.*
 
@@ -99,13 +110,13 @@ val color2: HSLColor = HSLColor(120, 100, 100, 1.0)
 for (x in color1..color2 steps 10 numberInterpolator { a, b, t -> a + (b - a) * t } space ColorType.HSL path InterpolationPath.LONGEST) {
     println(x)
 }
-````
+```
 </details>
 
 <details>
 <summary>Java</summary>
 
-````java
+```java
 import app.moreo.ucl.enums.ColorType;
 import app.moreo.ucl.colors.*;
 import org.w3c.dom.css.RGBColor;
@@ -120,7 +131,7 @@ class Main {
         }
     }
 }
-````
+```
 </details>
 
 ## Supported Color Spaces
