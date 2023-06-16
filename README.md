@@ -8,26 +8,6 @@ As of now, the library is Ultimate only by name, but I hope to be able to suppor
 
 ## Usage
 
-<div style="display: none">
-<details>
-<summary>Kotlin</summary>
-
-```kotlin
-```
-</details>
-
-<details>
-<summary>Java</summary>
-
-```java
-class Main {
-    public static void main(String[] args) {
-    }
-}
-```
-</details>
-</div>
-
 ### Creating a color
 Just create the color with the space you need. i.e. :
 <details>
