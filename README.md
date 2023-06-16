@@ -6,6 +6,40 @@ The origin of my idea is the js library [Color.js](https://colorjs.io/)
 
 As of now, the library is Ultimate only by name, but I hope to be able to support the most color spaces possible and turn it into a real Ultimate Color Library.
 
+## Installation
+
+The current version is ``0.0.2-alpha-SNAPSHOT``
+
+<details>
+<summary> Gradle Groovy </summary>
+
+```groovy
+repositories {
+    maven {
+        url = "https://s01.oss.sonatype.org/content/repositories/snapshots/"
+    }
+}
+
+dependencies {
+    implementation("app.moreo:ultimate-color-library:CURRENT_VERSION")
+}
+```
+</details>
+
+<details>
+<summary> Gradle Kotlin</summary>
+
+```kotlin
+repositories {
+    maven("https://s01.oss.sonatype.org/content/repositories/snapshots/")
+}
+
+dependencies {
+    implementation("app.moreo:ultimate-color-library:CURRENT_VERSION")
+}
+```
+</details>
+
 ## Usage
 
 ### Creating a color
