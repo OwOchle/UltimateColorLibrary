@@ -4,6 +4,8 @@
 The ultimate color library was created because I found myself unable to easily convert colors and make gradients.
 The origin of my idea is the js library [Color.js](https://colorjs.io/)
 
+As of now, the library is Ultimate only by name, but I hope to be able to support the most color spaces possible and turn it into a real Ultimate Color Library.
+
 ## Usage
 
 <div style="display: none">
