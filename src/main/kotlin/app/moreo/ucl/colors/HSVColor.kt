@@ -7,6 +7,7 @@ import app.moreo.ucl.exceptions.ColorTypeException
 import app.moreo.ucl.interfaces.Interpolatable
 import app.moreo.ucl.utils.TWO_PI
 import kotlin.math.abs
+import kotlin.math.round
 
 /**
  * HSV color representation
@@ -25,8 +26,8 @@ class HSVColor(hue: Float, var saturation: Float, var value: Float, override var
 
     var hue: Float = hue.mod(TWO_PI)
 
-    var degreesHue: Float
-        inline get() = Math.toRadians(hue.toDouble()).toFloat()
+    var degreesHue: Int
+        inline get() = round(Math.toDegrees(hue.toDouble())).toInt()
         inline set(value) {
             hue = Math.toRadians(value.toDouble()).toFloat()
         }
@@ -88,5 +89,20 @@ class HSVColor(hue: Float, var saturation: Float, var value: Float, override var
 
     override fun rangeTo(other: Color): ColorInterpolation<HSVColor> {
         return ColorInterpolation(this, other.toSpace(ColorType.HSV))
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (other !is Color) return false
+
+        val otherHSV = other.toSpace(ColorType.HSV)
+        return hue == otherHSV.hue && saturation == otherHSV.saturation && value == otherHSV.value && alpha == otherHSV.alpha
+    }
+
+    override fun hashCode(): Int {
+        var result = hue.hashCode()
+        result = 31 * result + saturation.hashCode()
+        result = 31 * result + value.hashCode()
+        result = 31 * result + alpha.hashCode()
+        return result
     }
 }

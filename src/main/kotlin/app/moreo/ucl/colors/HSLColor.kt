@@ -7,6 +7,7 @@ import app.moreo.ucl.exceptions.ColorTypeException
 import app.moreo.ucl.interfaces.Interpolatable
 import app.moreo.ucl.utils.TWO_PI
 import kotlin.math.abs
+import kotlin.math.round
 
 
 /**
@@ -26,7 +27,7 @@ class HSLColor(hue: Float, var saturation: Float, var lightness: Float, override
     var hue: Float = hue.mod(TWO_PI)
 
     var degreesHue: Int
-        inline get() = Math.toDegrees(hue.toDouble()).toInt()
+        inline get() = round(Math.toDegrees(hue.toDouble())).toInt()
         inline set(value) {
             hue = Math.toRadians(value.toDouble()).toFloat()
         }
@@ -86,5 +87,20 @@ class HSLColor(hue: Float, var saturation: Float, var lightness: Float, override
 
     override fun rangeTo(other: Color): ColorInterpolation<HSLColor> {
         return ColorInterpolation(this, other)
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (other !is Color) return false
+
+        val otherHSL = other.toSpace(ColorType.HSL)
+        return hue == otherHSL.hue && saturation == otherHSL.saturation && lightness == otherHSL.lightness && alpha == otherHSL.alpha
+    }
+
+    override fun hashCode(): Int {
+        var result = hue.hashCode()
+        result = 31 * result + saturation.hashCode()
+        result = 31 * result + lightness.hashCode()
+        result = 31 * result + alpha.hashCode()
+        return result
     }
 }

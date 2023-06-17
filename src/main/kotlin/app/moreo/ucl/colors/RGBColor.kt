@@ -73,8 +73,6 @@ class RGBColor(var red: Float, var green: Float, var blue: Float, override var a
                     else -> 60 * (((red - green) / chroma) + 4)
                 }
 
-                println("Hue: $hue")
-
                 val saturation = when (lightness) {
                     0f, 1f -> 0f
                     else -> chroma / (1 - abs(2 * lightness - 1))
@@ -97,5 +95,20 @@ class RGBColor(var red: Float, var green: Float, var blue: Float, override var a
 
     override fun rangeTo(other: Color): ColorInterpolation<RGBColor> {
         return ColorInterpolation(this, other.toSpace(ColorType.RGB))
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (other !is Color) return false
+
+        val otherColor = other.toSpace(ColorType.RGB)
+        return red == otherColor.red && green == otherColor.green && blue == otherColor.blue && alpha == otherColor.alpha
+    }
+
+    override fun hashCode(): Int {
+        var result = red.hashCode()
+        result = 31 * result + green.hashCode()
+        result = 31 * result + blue.hashCode()
+        result = 31 * result + alpha.hashCode()
+        return result
     }
 }
