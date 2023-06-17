@@ -33,7 +33,7 @@ tasks.register<Jar>("dokkaJavadocJar") {
 }
 
 tasks.dokkaHtml {
-    outputDirectory.set(file("F:/moreowo.github.io/ucl/javadoc/"))
+    outputDirectory.set(file(System.getenv("DOKKA_OUTPUT")))
 }
 
 publishing {
