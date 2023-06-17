@@ -1,5 +1,8 @@
 name: Gradle library testing
-on: [push]
+on:
+  pull_request:
+    branches:
+      - master
 jobs:
   Run-Tests:
     runs-on: ubuntu-latest

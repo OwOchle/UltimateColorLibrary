@@ -1,4 +1,5 @@
 # The Ultimate Color Library
+![Test status](https://github.com/MoreOwO/UltimateColorLibrary/actions/workflows/gradle-test.yml/badge.svg)
 
 ## Concept
 The ultimate color library was created because I found myself unable to easily convert colors and make gradients.
@@ -8,7 +9,7 @@ As of now, the library is Ultimate only by name, but I hope to be able to suppor
 
 ## Installation
 
-The current version is ``0.0.3-alpha-SNAPSHOT``
+The current version is ``0.0.4-alpha-SNAPSHOT``
 
 <details>
 <summary> Gradle Groovy </summary>
@@ -69,7 +70,7 @@ class Main {
 </details>
 
 ### Color conversion
-If you need to transform a color into another, just use the `toColor` method and pass the color space you want
+If you need to transform a color into another, just use the `toSpace` method and pass the color space you want
 
 <details>
 <summary>Kotlin</summary>

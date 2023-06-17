@@ -13,6 +13,15 @@ import app.moreo.ucl.interpolators.HSVInterpolator
 import app.moreo.ucl.interpolators.RGBInterpolator
 import app.moreo.ucl.utils.interpolate
 
+/**
+ * An iterable representing a color interpolation between two colors
+ * @property start the start color
+ * @property end the end color
+ * @property space the color space to interpolate in
+ * @property steps the number of steps to interpolate
+ * @property numberInterpolator the number interpolator to use
+ * @property path the [InterpolationPath] to use
+ */
 class ColorInterpolation<T: Color> (val start: Color, val end: Color): Iterable<T> {
     private var space: ColorType<out Color> = when (start) {
         is RGBColor -> ColorType.RGB

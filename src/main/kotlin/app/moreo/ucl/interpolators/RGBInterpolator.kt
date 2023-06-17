@@ -6,6 +6,14 @@ import app.moreo.ucl.interfaces.ColorInterpolator
 import app.moreo.ucl.utils.interpolate
 import java.util.logging.Logger
 
+/**
+ * RGB space color interpolator
+ * @property start the start color
+ * @property end the end color
+ * @property steps the number of steps to interpolate
+ * @property path the [InterpolationPath] to use
+ * @property numberInterpolator the number interpolator to use
+ */
 class RGBInterpolator(override val start: RGBColor, override val end: RGBColor, override val steps: Int,
                       override val path: InterpolationPath, override val numberInterpolator: (Float, Float, Float) -> Float = ::interpolate):
     ColorInterpolator<RGBColor> {

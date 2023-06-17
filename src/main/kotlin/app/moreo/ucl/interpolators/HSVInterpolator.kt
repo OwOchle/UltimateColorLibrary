@@ -6,6 +6,14 @@ import app.moreo.ucl.interfaces.ColorInterpolator
 import app.moreo.ucl.utils.TWO_PI
 import app.moreo.ucl.utils.interpolate
 
+/**
+ * HSV space color interpolator
+ * @property start the start color
+ * @property end the end color
+ * @property steps the number of steps to interpolate
+ * @property path the [InterpolationPath] to use
+ * @property numberInterpolator the number interpolator to use
+ */
 class HSVInterpolator(override val start: HSVColor, override val end: HSVColor, override val steps: Int,
                       override val path: InterpolationPath, override val numberInterpolator: (Float, Float, Float) -> Float = ::interpolate):
     ColorInterpolator<HSVColor> {
