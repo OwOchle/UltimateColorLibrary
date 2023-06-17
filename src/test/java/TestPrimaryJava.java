@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 public class TestPrimaryJava {
 
     private final RGBColor testingColor = new RGBColor((short) 150, (short) 192, (short) 98, 1);
-    private final RGBColor shortHexColor = new RGBColor((short) 153, (short) 204, (short) 0, 1);
+    private final RGBColor shortHexColor = new RGBColor((short) 153, (short) 204, (short) 0, .8f);
 
     @Test
     public void primaryConversionTest() {
@@ -24,7 +24,16 @@ public class TestPrimaryJava {
 
     @Test
     public void shortHexParsingTest() {
-        RGBColor color = Color.fromString("#9C0", ColorType.RGB);
+        RGBColor color = Color.fromString("#9C0C", ColorType.RGB);
+        assert color.equals(shortHexColor);
+    }
+
+    @Test
+    public void rgbParsingTest() {
+        RGBColor color = Color.fromString("rgb(150, 192, 98)", ColorType.RGB);
+        assert color.equals(testingColor);
+
+        color = Color.fromString("rgb(153 204 0 / .8)", ColorType.RGB);
         assert color.equals(shortHexColor);
     }
 }
