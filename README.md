@@ -1,5 +1,6 @@
 # The Ultimate Color Library
-![Test status](https://github.com/MoreOwO/UltimateColorLibrary/actions/workflows/gradle-test.yml/badge.svg)
+![Test status](https://img.shields.io/github/actions/workflow/status/MoreOwO/UltimateColorLibrary/gradle-test.yml?style=for-the-badge&logo=github&label=Tests)
+![Sonatype status](https://img.shields.io/nexus/s/app.moreo/ultimate-color-library?server=https%3A%2F%2Fs01.oss.sonatype.org%2F&style=for-the-badge&label=Sonatype)
 
 ## Concept
 The ultimate color library was created because I found myself unable to easily convert colors and make gradients.
