@@ -133,7 +133,6 @@ for (x in color1..color2 steps 10 numberInterpolator { a, b, t -> a + (b - a) * 
 ```java
 import app.moreo.ucl.enums.ColorType;
 import app.moreo.ucl.colors.*;
-import org.w3c.dom.css.RGBColor;
 
 class Main {
     public static void main(String[] args) {

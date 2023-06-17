@@ -34,7 +34,7 @@ class RGBColor(var red: Float, var green: Float, var blue: Float, override var a
      * @param alpha alpha between 0 and 1
      */
     constructor(red: Short, green: Short, blue: Short, alpha: Float = 1f) : this(red / 255f, green / 255f, blue / 255f, alpha) {
-        if (minOf(red, green, blue) < 0 || maxOf(red, green, blue) > 255) throw GamutException("RGB varues must be between 0 and 255")
+        if (minOf(red, green, blue) < 0 || maxOf(red, green, blue) > 255) throw GamutException("RGB values must be between 0 and 255")
     }
 
     @Deprecated("Use toSpace instead", replaceWith = ReplaceWith("toSpace(color)"))
