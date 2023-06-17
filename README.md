@@ -10,7 +10,7 @@ As of now, the library is Ultimate only by name, but I hope to be able to suppor
 
 ## Installation
 
-The current version is ``0.0.4-alpha-SNAPSHOT``
+The current version is ``0.0.5-alpha-SNAPSHOT``
 
 <details>
 <summary> Gradle Groovy </summary>
