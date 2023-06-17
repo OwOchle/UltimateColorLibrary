@@ -5,22 +5,25 @@ import app.moreo.ucl.ColorInterpolation
 import app.moreo.ucl.enums.ColorType
 import app.moreo.ucl.exceptions.ColorTypeException
 import app.moreo.ucl.interfaces.Interpolatable
+import app.moreo.ucl.utils.TWO_PI
 import kotlin.math.abs
 
 /**
  * HSV color representation
  * HSV is equivalent to HSB
- * @property hue hue in radians
+ * @property hue hue in radians, between 0 and two pi
  * @property saturation saturation between 0 and 1
  * @property value value between 0 and 1
  * @property alpha alpha between 0 and 1
  *
- * @param hue hue in radians
+ * @param hue hue in radians, (modulo two pi gets applied, so you may lose data in conversion)
  * @param saturation saturation between 0 and 1
  * @param value value between 0 and 1
  * @param alpha alpha between 0 and 1
  */
-class HSVColor(var hue: Float, var saturation: Float, var value: Float, override var alpha: Float = 1f): Color, Interpolatable<HSVColor> {
+class HSVColor(hue: Float, var saturation: Float, var value: Float, override var alpha: Float = 1f): Color, Interpolatable<HSVColor> {
+
+    var hue: Float = hue.mod(TWO_PI)
 
     var degreesHue: Float
         inline get() = Math.toRadians(hue.toDouble()).toFloat()
@@ -31,20 +34,17 @@ class HSVColor(var hue: Float, var saturation: Float, var value: Float, override
     /**
      * HSV color representation
      * HSV is equivalent to HSB
-     * @property hue hue in radians
+     * @property hue hue in radians, between 0 and two pi
      * @property saturation saturation between 0 and 1
      * @property value value between 0 and 1
      * @property alpha alpha between 0 and 1
      *
-     * @param hue hue in degrees
+     * @param hue hue in degrees, (modulo 360 gets applied, so you may lose data in conversion)
      * @param saturation saturation between 0 and 100
      * @param value value between 0 and 100
      * @param alpha alpha between 0 and 1
      */
     constructor(hue: Int, saturation: Int, value: Int, alpha: Float = 1f): this(Math.toRadians(hue.toDouble()).toFloat(), saturation / 100f, value / 100f, alpha)
-
-    @Deprecated("Use toSpace instead", replaceWith = ReplaceWith("toSpace(color)"))
-    override fun <T : Color> toColor(color: ColorType<T>): T = toSpace(color)
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : Color> toSpace(color: ColorType<T>): T {

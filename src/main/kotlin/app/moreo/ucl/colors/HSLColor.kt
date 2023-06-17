@@ -45,9 +45,6 @@ class HSLColor(hue: Float, var saturation: Float, var lightness: Float, override
      */
     constructor(hue: Int, saturation: Int, lightness: Int, alpha: Float = 1f): this(Math.toRadians(hue.toDouble().mod(360f)).toFloat(), saturation / 100f, lightness / 100f, alpha)
 
-    @Deprecated("Use toSpace instead", replaceWith = ReplaceWith("toSpace(color)"))
-    override fun <T : Color> toColor(color: ColorType<T>): T = toSpace(color)
-
     @Suppress("UNCHECKED_CAST")
     override fun <T : Color> toSpace(color: ColorType<T>): T {
         return when (color) {
