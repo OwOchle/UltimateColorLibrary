@@ -1,19 +1,22 @@
 plugins {
     kotlin("jvm")
-    `maven-publish`
-    signing
-    application
     id("org.jetbrains.dokka")
+    application
+    signing
+    `maven-publish`
 }
 
-group = "app.moreo.ucl"
 version = "0.0.5-alpha-SNAPSHOT"
+group = "app.moreo.ucl"
 
 repositories {
     mavenCentral()
+    maven("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
 }
 
 dependencies {
+    implementation("org.spigotmc:spigot-api:1.19.4-R0.1-SNAPSHOT")
+    api(project(":ultimate-color-library-core"))
     testImplementation(kotlin("test"))
 }
 
@@ -25,15 +28,10 @@ kotlin {
     jvmToolchain(17)
 }
 
-
 tasks.register<Jar>("dokkaJavadocJar") {
     dependsOn(tasks.dokkaJavadoc)
     from(tasks.dokkaJavadoc.flatMap { it.outputDirectory })
     archiveClassifier.set("javadoc")
-}
-
-tasks.dokkaHtml {
-    outputDirectory.set(file(System.getenv("DOKKA_OUTPUT")))
 }
 
 publishing {
@@ -51,7 +49,7 @@ publishing {
     }
     publications {
         create<MavenPublication>("mavenKotlin") {
-            artifactId = "ultimate-color-library-core"
+            artifactId = "ultimate-color-library-bukkit"
             groupId = "app.moreo"
             version = project.version.toString()
 

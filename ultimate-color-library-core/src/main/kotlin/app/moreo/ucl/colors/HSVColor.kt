@@ -24,6 +24,11 @@ import kotlin.math.round
  */
 class HSVColor(hue: Float, var saturation: Float, var value: Float, override var alpha: Float = 1f): Color, Interpolatable<HSVColor> {
 
+    companion object {
+        @JvmField
+        val TYPE = ColorType.HSV
+    }
+
     var hue: Float = hue.mod(TWO_PI)
 
     var degreesHue: Int

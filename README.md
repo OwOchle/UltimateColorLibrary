@@ -23,7 +23,7 @@ repositories {
 }
 
 dependencies {
-    implementation("app.moreo:ultimate-color-library:CURRENT_VERSION")
+    implementation("app.moreo:ultimate-color-library-core:CURRENT_VERSION")
 }
 ```
 </details>
@@ -37,7 +37,7 @@ repositories {
 }
 
 dependencies {
-    implementation("app.moreo:ultimate-color-library:CURRENT_VERSION")
+    implementation("app.moreo:ultimate-color-library-core:CURRENT_VERSION")
 }
 ```
 </details>

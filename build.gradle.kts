@@ -6,3 +6,7 @@ plugins {
 repositories {
     mavenCentral()
 }
+
+tasks.dokkaHtml {
+    outputDirectory.set(file(System.getenv("DOKKA_OUTPUT")))
+}
