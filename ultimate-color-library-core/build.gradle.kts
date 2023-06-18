@@ -7,7 +7,6 @@ plugins {
 }
 
 group = "app.moreo.ucl"
-version = "0.0.5-alpha-SNAPSHOT"
 
 repositories {
     mavenCentral()

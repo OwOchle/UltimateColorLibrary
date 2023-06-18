@@ -1,6 +1,6 @@
 # The Ultimate Color Library
 [![Test status](https://img.shields.io/github/actions/workflow/status/MoreOwO/UltimateColorLibrary/gradle-test.yml?style=for-the-badge&logo=github&label=Tests)](https://github.com/MoreOwO/UltimateColorLibrary/actions/workflows/gradle-test.yml)
-[![Sonatype status](https://img.shields.io/nexus/s/app.moreo/ultimate-color-library?server=https%3A%2F%2Fs01.oss.sonatype.org%2F&style=for-the-badge&label=Sonatype)](https://s01.oss.sonatype.org/content/repositories/snapshots/app/moreo/ultimate-color-library/)
+[![Sonatype status](https://img.shields.io/nexus/s/app.moreo/ultimate-color-library-core?server=https%3A%2F%2Fs01.oss.sonatype.org%2F&style=for-the-badge&label=Sonatype)](https://s01.oss.sonatype.org/content/repositories/snapshots/app/moreo/ultimate-color-library/)
 [![License](https://img.shields.io/badge/LICENSE-CC--BY--SA-%23EF9421?style=for-the-badge&logo=creativecommons)](http://creativecommons.org/licenses/by-sa/4.0/)
 ## Concept
 The ultimate color library was created because I found myself unable to easily convert colors and make gradients.
@@ -10,7 +10,7 @@ As of now, the library is Ultimate only by name, but I hope to be able to suppor
 
 ## Installation
 
-The current version is ``0.0.5-alpha-SNAPSHOT``
+The current version is ``0.0.6-alpha-SNAPSHOT``
 
 <details>
 <summary> Gradle Groovy </summary>
