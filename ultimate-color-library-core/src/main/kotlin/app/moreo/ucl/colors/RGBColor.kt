@@ -22,6 +22,11 @@ import kotlin.math.abs
  */
 class RGBColor(var red: Float, var green: Float, var blue: Float, override var alpha: Float = 1f): Color, Interpolatable<RGBColor> {
 
+    companion object {
+        @JvmField
+        val TYPE = ColorType.RGB
+    }
+
     /**
      * RGB color representation
      * @property red red between 0 and 1
