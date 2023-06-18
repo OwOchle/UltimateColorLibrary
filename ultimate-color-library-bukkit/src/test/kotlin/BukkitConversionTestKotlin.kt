@@ -2,7 +2,7 @@ import app.moreo.ucl.adapters.toChatColor
 import app.moreo.ucl.adapters.toColor
 import app.moreo.ucl.colors.RGBColor
 import net.md_5.bungee.api.ChatColor
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 
 class BukkitConversionTestKotlin {
