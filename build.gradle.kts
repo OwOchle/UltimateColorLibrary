@@ -7,7 +7,7 @@ repositories {
     mavenCentral()
 }
 
-version = "0.0.6-alpha-SNAPSHOT"
+version = "0.0.6-alpha"
 
 tasks.dokkaHtml {
     outputDirectory.set(file(System.getenv("DOKKA_OUTPUT")))
