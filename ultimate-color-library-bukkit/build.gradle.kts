@@ -6,6 +6,7 @@ plugins {
     `maven-publish`
 }
 
+version = parent?.version ?: "?-SNAPSHOT"
 group = "app.moreo.ucl"
 
 repositories {

@@ -6,6 +6,7 @@ plugins {
     id("org.jetbrains.dokka")
 }
 
+version = parent?.version ?: "?-SNAPSHOT"
 group = "app.moreo.ucl"
 
 repositories {
