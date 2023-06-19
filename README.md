@@ -1,6 +1,7 @@
 # The Ultimate Color Library
 [![Test status](https://img.shields.io/github/actions/workflow/status/MoreOwO/UltimateColorLibrary/gradle-test.yml?style=for-the-badge&logo=github&label=Tests)](https://github.com/MoreOwO/UltimateColorLibrary/actions/workflows/gradle-test.yml)
-[![Sonatype status](https://img.shields.io/nexus/s/app.moreo/ultimate-color-library-core?server=https%3A%2F%2Fs01.oss.sonatype.org%2F&style=for-the-badge&label=Sonatype)](https://s01.oss.sonatype.org/content/repositories/snapshots/app/moreo/ultimate-color-library/)
+[![Sonatype status](https://img.shields.io/nexus/snapshots/app.moreo/ultimate-color-library-core?server=https%3A%2F%2Fs01.oss.sonatype.org&style=for-the-badge)](https://s01.oss.sonatype.org/content/repositories/snapshots/app/moreo/ultimate-color-library-core/)
+[![Maven central status](https://img.shields.io/maven-metadata/v.svg?label=maven-central&metadataUrl=https%3A%2F%2Frepo1.maven.org%2Fmaven2%2Fapp%2Fmoreo%2Fultimate-color-library-core%2Fmaven-metadata.xml&style=for-the-badge)](https://central.sonatype.com/artifact/app.moreo/ultimate-color-library-core/)
 [![License](https://img.shields.io/badge/LICENSE-CC--BY--SA-%23EF9421?style=for-the-badge&logo=creativecommons)](http://creativecommons.org/licenses/by-sa/4.0/)
 ## Concept
 The ultimate color library was created because I found myself unable to easily convert colors and make gradients.
