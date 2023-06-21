@@ -88,6 +88,14 @@ class RGBColor(var red: Float, var green: Float, var blue: Float, override var a
             ColorType.RGB -> {
                 this as T
             }
+
+            ColorType.XYZ_D65 -> {
+                return XYZD65Color(
+                    0.4124f * red + 0.3576f * green + 0.1805f * blue,
+                    0.2126f * red + 0.7152f * green + 0.0722f * blue,
+                    0.0193f * red + 0.1192f * green + 0.9505f * blue
+                ) as T
+            }
             else -> {
                 throw ColorTypeException("Color type not supported")
             }

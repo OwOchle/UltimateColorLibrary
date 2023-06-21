@@ -82,6 +82,10 @@ class HSVColor(hue: Float, var saturation: Float, var value: Float, override var
 
                 return RGBColor(r1 + m, g1 + m, b1 + m, alpha) as T
             }
+
+            ColorType.XYZ_D65 -> {
+                return this.toSpace(ColorType.RGB).toSpace(ColorType.XYZ_D65)
+            }
             else -> {
                 throw ColorTypeException("Color type not supported")
             }
