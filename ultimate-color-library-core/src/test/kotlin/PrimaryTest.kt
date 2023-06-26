@@ -1,6 +1,6 @@
-import app.moreo.ucl.Color
 import app.moreo.ucl.colors.RGBColor
 import app.moreo.ucl.enums.ColorType
+import app.moreo.ucl.interfaces.Color
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 

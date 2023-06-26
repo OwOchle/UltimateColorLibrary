@@ -1,10 +1,10 @@
 package app.moreo.ucl.colors
 
-import app.moreo.ucl.Color
-import app.moreo.ucl.ColorInterpolation
 import app.moreo.ucl.enums.ColorType
 import app.moreo.ucl.exceptions.ColorTypeException
+import app.moreo.ucl.interfaces.Color
 import app.moreo.ucl.interfaces.Interpolatable
+import app.moreo.ucl.interpolation.ColorInterpolation
 import app.moreo.ucl.utils.TWO_PI
 import kotlin.math.abs
 import kotlin.math.round

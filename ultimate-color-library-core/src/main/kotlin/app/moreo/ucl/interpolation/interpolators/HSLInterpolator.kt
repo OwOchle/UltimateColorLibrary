@@ -1,4 +1,4 @@
-package app.moreo.ucl.interpolators
+package app.moreo.ucl.interpolation.interpolators
 
 import app.moreo.ucl.colors.HSLColor
 import app.moreo.ucl.enums.InterpolationPath

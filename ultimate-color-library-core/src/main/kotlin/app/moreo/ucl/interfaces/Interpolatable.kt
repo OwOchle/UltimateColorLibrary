@@ -1,7 +1,6 @@
 package app.moreo.ucl.interfaces
 
-import app.moreo.ucl.Color
-import app.moreo.ucl.ColorInterpolation
+import app.moreo.ucl.interpolation.ColorInterpolation
 
 /**
  * An interface to mark a color as interpolatable

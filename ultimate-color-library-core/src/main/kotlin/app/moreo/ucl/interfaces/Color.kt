@@ -1,4 +1,4 @@
-package app.moreo.ucl
+package app.moreo.ucl.interfaces
 
 import app.moreo.ucl.colors.RGBColor
 import app.moreo.ucl.enums.ColorType

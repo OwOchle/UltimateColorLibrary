@@ -1,7 +1,7 @@
-import app.moreo.ucl.Color;
 import app.moreo.ucl.colors.HSLColor;
 import app.moreo.ucl.colors.RGBColor;
 import app.moreo.ucl.enums.ColorType;
+import app.moreo.ucl.interfaces.Color;
 import kotlin.test.junit5.JUnit5Asserter;
 import org.junit.jupiter.api.Test;
 

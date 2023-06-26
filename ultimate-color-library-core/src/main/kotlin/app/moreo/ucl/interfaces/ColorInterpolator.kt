@@ -1,6 +1,5 @@
 package app.moreo.ucl.interfaces
 
-import app.moreo.ucl.Color
 import app.moreo.ucl.enums.InterpolationPath
 
 /**

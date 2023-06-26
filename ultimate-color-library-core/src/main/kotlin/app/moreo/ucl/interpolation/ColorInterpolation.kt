@@ -1,4 +1,4 @@
-package app.moreo.ucl
+package app.moreo.ucl.interpolation
 
 import app.moreo.ucl.colors.HSLColor
 import app.moreo.ucl.colors.HSVColor
@@ -7,10 +7,11 @@ import app.moreo.ucl.enums.ColorType
 import app.moreo.ucl.enums.InterpolationPath
 import app.moreo.ucl.exceptions.ColorTypeException
 import app.moreo.ucl.exceptions.InterpolationException
+import app.moreo.ucl.interfaces.Color
 import app.moreo.ucl.interfaces.ColorInterpolator
-import app.moreo.ucl.interpolators.HSLInterpolator
-import app.moreo.ucl.interpolators.HSVInterpolator
-import app.moreo.ucl.interpolators.RGBInterpolator
+import app.moreo.ucl.interpolation.interpolators.HSLInterpolator
+import app.moreo.ucl.interpolation.interpolators.HSVInterpolator
+import app.moreo.ucl.interpolation.interpolators.RGBInterpolator
 import app.moreo.ucl.utils.interpolate
 
 /**

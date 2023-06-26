@@ -1,8 +1,8 @@
 package app.moreo.ucl.adapters
 
-import app.moreo.ucl.Color
 import app.moreo.ucl.colors.RGBColor
 import app.moreo.ucl.enums.ColorType
+import app.moreo.ucl.interfaces.Color
 import net.md_5.bungee.api.ChatColor
 
 /**
