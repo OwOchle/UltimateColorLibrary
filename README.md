@@ -16,6 +16,12 @@ The latest version is ``0.0.8-alpha-SNAPSHOT``
 
 The latest stable version is ``0.0.6-alpha``
 
+Branches available :
+- ``bukkit``
+- ``core``
+
+All branches other than ``core`` contains the ``core`` module, so you don't need to add it to your dependencies if you use one of these branches.
+
 <details>
 <summary> Gradle Groovy </summary>
 
@@ -28,7 +34,7 @@ repositories {
 }
 
 dependencies {
-    implementation("app.moreo:ultimate-color-library-core:CURRENT_VERSION")
+    implementation("app.moreo:ultimate-color-library-BRANCH:CURRENT_VERSION")
 }
 ```
 </details>
@@ -43,7 +49,7 @@ repositories {
 }
 
 dependencies {
-    implementation("app.moreo:ultimate-color-library-core:CURRENT_VERSION")
+    implementation("app.moreo:ultimate-color-library-BRANCH:CURRENT_VERSION")
 }
 ```
 </details>
