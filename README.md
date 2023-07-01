@@ -12,9 +12,9 @@ As of now, the library is Ultimate only by name, but I hope to be able to suppor
 
 ## Installation
 
-The latest version is ``0.0.6-alpha-SNAPSHOT``
+The latest version is ``0.0.7-alpha-SNAPSHOT``
 
-The latest stable version is ``0.0.6-alpha``
+The latest stable version is ``0.0.7-alpha``
 
 <details>
 <summary> Gradle Groovy </summary>
