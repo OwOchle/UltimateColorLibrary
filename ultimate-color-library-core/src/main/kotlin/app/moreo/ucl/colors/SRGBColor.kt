@@ -6,6 +6,7 @@ import app.moreo.ucl.enums.ColorType
 import app.moreo.ucl.exceptions.ColorTypeException
 import app.moreo.ucl.exceptions.GamutException
 import app.moreo.ucl.interfaces.Interpolatable
+import app.moreo.ucl.utils.precisionEquals
 import app.moreo.ucl.utils.toRadians
 import kotlin.math.abs
 import kotlin.math.pow
@@ -119,8 +120,8 @@ class SRGBColor @JvmOverloads constructor(var red: Float, var green: Float, var 
     override fun equals(other: Any?): Boolean {
         if (other !is Color) return false
 
-        val otherColor = other.toSpace(ColorType.SRGB)
-        return red == otherColor.red && green == otherColor.green && blue == otherColor.blue && alpha == otherColor.alpha
+        val otherSRGB = other.toSpace(ColorType.SRGB)
+        return red.precisionEquals(otherSRGB.red) && green.precisionEquals(otherSRGB.green) && blue.precisionEquals(otherSRGB.blue) && alpha.precisionEquals(otherSRGB.alpha)
     }
 
     override fun hashCode(): Int {
