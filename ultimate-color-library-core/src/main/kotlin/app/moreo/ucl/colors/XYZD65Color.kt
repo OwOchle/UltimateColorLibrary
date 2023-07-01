@@ -6,7 +6,6 @@ import app.moreo.ucl.exceptions.ColorTypeException
 import app.moreo.ucl.utils.correct
 import app.moreo.ucl.utils.precisionEquals
 import java.math.RoundingMode
-import kotlin.math.abs
 import kotlin.math.pow
 
 class XYZD65Color(var x: Float, var y: Float, var z: Float, override var alpha: Float = 1f): Color {
@@ -54,13 +53,6 @@ class XYZD65Color(var x: Float, var y: Float, var z: Float, override var alpha: 
             }
             else -> throw ColorTypeException("Cannot convert to $color")
         }
-    }
-
-    private fun adj(c: Float): Float {
-        if (abs(c) < 0.0031308) {
-            return 12.92f * c;
-        }
-        return 1.055f * c.pow(0.41666f) - 0.055f;
     }
 
     override fun equals(other: Any?): Boolean {
