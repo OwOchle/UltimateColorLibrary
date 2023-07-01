@@ -21,7 +21,8 @@ import kotlin.math.pow
  * @param blue blue between 0 and 1
  * @param alpha alpha between 0 and 1
  */
-class SRGBColor(var red: Float, var green: Float, var blue: Float, override var alpha: Float = 1f): Color, Interpolatable<SRGBColor> {
+
+class SRGBColor @JvmOverloads constructor(var red: Float, var green: Float, var blue: Float, override var alpha: Float = 1f): Color, Interpolatable<SRGBColor> {
 
     companion object {
         @JvmField
@@ -39,7 +40,7 @@ class SRGBColor(var red: Float, var green: Float, var blue: Float, override var 
      * @param blue blue between 0 and 255
      * @param alpha alpha between 0 and 1
      */
-    constructor(red: Short, green: Short, blue: Short, alpha: Float = 1f) : this(red / 255f, green / 255f, blue / 255f, alpha) {
+    @JvmOverloads constructor(red: Short, green: Short, blue: Short, alpha: Float = 1f) : this(red / 255f, green / 255f, blue / 255f, alpha) {
         if (minOf(red, green, blue) < 0 || maxOf(red, green, blue) > 255) throw GamutException("SRGB values must be between 0 and 255")
     }
 

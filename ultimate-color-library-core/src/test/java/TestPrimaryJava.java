@@ -7,8 +7,8 @@ import org.junit.jupiter.api.Test;
 
 public class TestPrimaryJava {
 
-    private final SRGBColor testingColor = new SRGBColor((short) 150, (short) 192, (short) 98, 1);
-    private final SRGBColor shortHexColor = new SRGBColor((short) 153, (short) 204, (short) 0, .8f);
+    private final SRGBColor testingColor = new SRGBColor((short) 150, (short) 192, (short) 98);
+    private final SRGBColor shortHexColor = new SRGBColor((short) 153, (short) 204, (short) 0);
 
     @Test
     public void primaryConversionTest() {

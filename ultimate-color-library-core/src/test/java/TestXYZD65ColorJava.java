@@ -17,14 +17,14 @@ public class TestXYZD65ColorJava {
     private val xyzTestingColor = XYZD65Color(0.3363f, 0.4506f, 0.1847f)
      */
 
-    private final SRGBColor red = new SRGBColor((short) 255, (short) 0, (short) 0, 1f);
-    private final XYZD65Color xyzRed = new XYZD65Color(0.4124f, 0.2126f, 0.0193f, 1f);
+    private final SRGBColor red = new SRGBColor((short) 255, (short) 0, (short) 0);
+    private final XYZD65Color xyzRed = new XYZD65Color(0.4124f, 0.2126f, 0.0193f);
 
-    private final SRGBColor white = new SRGBColor((short) 255, (short) 255, (short) 255, 1f);
-    private final XYZD65Color xyzWhite = new XYZD65Color(0.9505f, 1.0f, 1.089f, 1f);
+    private final SRGBColor white = new SRGBColor((short) 255, (short) 255, (short) 255);
+    private final XYZD65Color xyzWhite = new XYZD65Color(0.9505f, 1.0f, 1.089f);
 
-    private final HSLColor hslTestingColor = new HSLColor(1.5151f, .427f, .569f, 1f);
-    private final XYZD65Color xyzTestingColor = new XYZD65Color(0.3363f, 0.4506f, 0.1847f, 1f);
+    private final HSLColor hslTestingColor = new HSLColor(1.5151f, .427f, .569f);
+    private final XYZD65Color xyzTestingColor = new XYZD65Color(0.3363f, 0.4506f, 0.1847f);
 
     @Test
     public void otherToXyz() {
