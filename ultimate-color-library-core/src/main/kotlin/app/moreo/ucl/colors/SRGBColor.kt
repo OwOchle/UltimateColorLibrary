@@ -6,6 +6,7 @@ import app.moreo.ucl.enums.ColorType
 import app.moreo.ucl.exceptions.ColorTypeException
 import app.moreo.ucl.exceptions.GamutException
 import app.moreo.ucl.interfaces.Interpolatable
+import app.moreo.ucl.utils.precisionEquals
 import app.moreo.ucl.utils.toRadians
 import kotlin.math.abs
 import kotlin.math.pow
@@ -21,7 +22,8 @@ import kotlin.math.pow
  * @param blue blue between 0 and 1
  * @param alpha alpha between 0 and 1
  */
-class SRGBColor(var red: Float, var green: Float, var blue: Float, override var alpha: Float = 1f): Color, Interpolatable<SRGBColor> {
+
+class SRGBColor @JvmOverloads constructor(var red: Float, var green: Float, var blue: Float, override var alpha: Float = 1f): Color, Interpolatable<SRGBColor> {
 
     companion object {
         @JvmField
@@ -39,7 +41,7 @@ class SRGBColor(var red: Float, var green: Float, var blue: Float, override var 
      * @param blue blue between 0 and 255
      * @param alpha alpha between 0 and 1
      */
-    constructor(red: Short, green: Short, blue: Short, alpha: Float = 1f) : this(red / 255f, green / 255f, blue / 255f, alpha) {
+    @JvmOverloads constructor(red: Short, green: Short, blue: Short, alpha: Float = 1f) : this(red / 255f, green / 255f, blue / 255f, alpha) {
         if (minOf(red, green, blue) < 0 || maxOf(red, green, blue) > 255) throw GamutException("SRGB values must be between 0 and 255")
     }
 
@@ -118,8 +120,8 @@ class SRGBColor(var red: Float, var green: Float, var blue: Float, override var 
     override fun equals(other: Any?): Boolean {
         if (other !is Color) return false
 
-        val otherColor = other.toSpace(ColorType.SRGB)
-        return red == otherColor.red && green == otherColor.green && blue == otherColor.blue && alpha == otherColor.alpha
+        val otherSRGB = other.toSpace(ColorType.SRGB)
+        return red.precisionEquals(otherSRGB.red) && green.precisionEquals(otherSRGB.green) && blue.precisionEquals(otherSRGB.blue) && alpha.precisionEquals(otherSRGB.alpha)
     }
 
     override fun hashCode(): Int {

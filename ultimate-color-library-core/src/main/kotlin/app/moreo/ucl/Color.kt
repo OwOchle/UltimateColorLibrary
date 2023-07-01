@@ -1,9 +1,14 @@
 package app.moreo.ucl
 
+import app.moreo.ucl.colors.HSLColor
 import app.moreo.ucl.colors.SRGBColor
 import app.moreo.ucl.enums.ColorType
+import app.moreo.ucl.utils.*
 import app.moreo.ucl.utils.ParsedColorType
+import app.moreo.ucl.utils.TWO_PI
 import app.moreo.ucl.utils.regexTypeList
+import app.moreo.ucl.utils.remap
+import app.moreo.ucl.utils.toRadians
 
 interface Color {
 
@@ -100,6 +105,52 @@ interface Color {
                         red,
                         green,
                         blue,
+                        alpha
+                    ).toSpace(space)
+                }
+
+                ParsedColorType.CSS_HSL -> {
+                    val hueString = groups["hue"]?.value ?: throw IllegalArgumentException("Invalid color format")
+                    val saturationString = groups["saturation"]?.value ?: throw IllegalArgumentException("Invalid color format")
+                    val lightnessString = groups["lightness"]?.value ?: throw IllegalArgumentException("Invalid color format")
+                    val alphaString = groups["alpha"]?.value ?: "1"
+
+                    val hueUnit = groups["hueUnit"]?.value ?: throw IllegalArgumentException("Invalid color format")
+
+                    val hue = if (hueUnit == "deg" || hueUnit.isEmpty()) {
+                        hueString.toFloat().mod(360f).toRadians()
+                    } else if (hueUnit == "rad") {
+                        hueString.toFloat()
+                    } else if (hueUnit == "turn") {
+                        hueString.toFloat().mod(1f).remap(0f, 1f, 0f, TWO_PI)
+                    } else if (hueUnit == "grad") {
+                        hueString.toFloat().mod(400f).remap(0f, 400f, 0f, TWO_PI)
+                    } else {
+                        throw IllegalArgumentException("Invalid hue unit")
+                    }
+
+                    val saturation = if (saturationString.endsWith("%")) {
+                        saturationString.dropLast(1).toFloat().div(100f)
+                    } else {
+                        saturationString.toFloat()
+                    }
+
+                    val lightness = if (lightnessString.endsWith("%")) {
+                        lightnessString.dropLast(1).toFloat().div(100f)
+                    } else {
+                        lightnessString.toFloat()
+                    }
+
+                    val alpha = if (alphaString.endsWith("%")) {
+                        alphaString.dropLast(1).toFloat().div(100f)
+                    } else {
+                        alphaString.toFloat()
+                    }
+
+                    return HSLColor(
+                        hue,
+                        saturation,
+                        lightness,
                         alpha
                     ).toSpace(space)
                 }

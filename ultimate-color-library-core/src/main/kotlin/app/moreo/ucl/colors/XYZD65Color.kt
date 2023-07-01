@@ -8,7 +8,7 @@ import app.moreo.ucl.utils.precisionEquals
 import java.math.RoundingMode
 import kotlin.math.pow
 
-class XYZD65Color(var x: Float, var y: Float, var z: Float, override var alpha: Float = 1f): Color {
+class XYZD65Color @JvmOverloads constructor(var x: Float, var y: Float, var z: Float, override var alpha: Float = 1f): Color {
 
     companion object {
         @JvmField

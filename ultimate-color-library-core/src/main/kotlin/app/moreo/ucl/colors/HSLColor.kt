@@ -23,7 +23,7 @@ import kotlin.math.round
  * @param lightness lightness between 0 and 1
  * @param alpha alpha between 0 and 1
  */
-class HSLColor(hue: Float, var saturation: Float, var lightness: Float, override var alpha: Float = 1f): Color, Interpolatable<HSLColor> {
+class HSLColor @JvmOverloads constructor(hue: Float, var saturation: Float, var lightness: Float, override var alpha: Float = 1f): Color, Interpolatable<HSLColor> {
 
     companion object {
         @JvmField
@@ -50,7 +50,7 @@ class HSLColor(hue: Float, var saturation: Float, var lightness: Float, override
      * @param lightness lightness between 0 and 100
      * @param alpha alpha between 0 and 1
      */
-    constructor(hue: Int, saturation: Int, lightness: Int, alpha: Float = 1f): this(Math.toRadians(hue.toDouble().mod(360f)).toFloat(), saturation / 100f, lightness / 100f, alpha)
+    @JvmOverloads constructor(hue: Int, saturation: Int, lightness: Int, alpha: Float = 1f): this(Math.toRadians(hue.toDouble().mod(360f)).toFloat(), saturation / 100f, lightness / 100f, alpha)
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : Color> toSpace(color: ColorType<T>): T {
