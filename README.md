@@ -173,6 +173,10 @@ class Main {
 - [ ] String export (i.e. #FF0000, rgb(255, 0, 0), etc.)
 
 
+## Thanks
+- Bruce Justin Lindbloom for their [color conversion equations](http://www.brucelindbloom.com/index.html?Math.html)
+- ColorMine for their [color converter](https://colormine.org/color-converter) which is the one I used to create the tests
+
 ## Links
 - [Javadoc](https://docs.moreo.app/ucl/javadoc)
 - [Maven Central](https://central.sonatype.com/artifact/app.moreo/ultimate-color-library-core/)
