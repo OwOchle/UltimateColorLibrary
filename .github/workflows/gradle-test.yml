@@ -1,0 +1,23 @@
+name: Gradle library testing
+on:
+  pull_request:
+    branches:
+      - master
+jobs:
+  Run-Tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Grant Permissions to gradlew
+        run: chmod +x gradlew
+
+      - name: Test
+        run: ./gradlew test --tests "*"
+
+      
