@@ -1,6 +1,6 @@
 package app.moreo.ucl
 
-import app.moreo.ucl.colors.RGBColor
+import app.moreo.ucl.colors.SRGBColor
 import app.moreo.ucl.enums.ColorType
 import app.moreo.ucl.utils.ParsedColorType
 import app.moreo.ucl.utils.regexTypeList
@@ -44,7 +44,7 @@ interface Color {
                     val blue = groups["blue"]?.value?.repeat(2) ?: throw IllegalArgumentException("Invalid color format")
                     val alpha = groups["alpha"]?.value?.repeat(2) ?: "FF"
 
-                    RGBColor(
+                    SRGBColor(
                         red.toShort(16),
                         green.toShort(16),
                         blue.toShort(16),
@@ -58,7 +58,7 @@ interface Color {
                     val blue = groups["blue"]?.value ?: throw IllegalArgumentException("Invalid color format")
                     val alpha = groups["alpha"]?.value ?: "FF"
 
-                    RGBColor(
+                    SRGBColor(
                         red.toShort(16),
                         green.toShort(16),
                         blue.toShort(16),
@@ -96,7 +96,7 @@ interface Color {
                         alphaString.toFloat()
                     }
 
-                    return RGBColor(
+                    return SRGBColor(
                         red,
                         green,
                         blue,

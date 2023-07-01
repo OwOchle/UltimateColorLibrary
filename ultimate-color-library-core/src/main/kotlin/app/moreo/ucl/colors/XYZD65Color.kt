@@ -3,6 +3,7 @@ package app.moreo.ucl.colors
 import app.moreo.ucl.Color
 import app.moreo.ucl.enums.ColorType
 import app.moreo.ucl.exceptions.ColorTypeException
+import app.moreo.ucl.utils.correct
 import app.moreo.ucl.utils.precisionEquals
 import java.math.RoundingMode
 import kotlin.math.abs
@@ -19,19 +20,37 @@ class XYZD65Color(var x: Float, var y: Float, var z: Float, override var alpha: 
     override fun <T : Color> toSpace(color: ColorType<T>): T {
         return when(color) {
             ColorType.XYZ_D65 -> this as T
-            ColorType.RGB -> {
-                val red = adj((3.2404542f * x) + (-1.5371385f * y) + (-0.4985314f * z)).toBigDecimal().setScale(4, RoundingMode.HALF_EVEN).toFloat()
-                val green = adj((-0.9692660f * x) + (1.8760108f * y) + (0.0415560f * z)).toBigDecimal().setScale(4, RoundingMode.HALF_EVEN).toFloat()
-                val blue = adj((0.0556434f * x) + (-0.2040259f * y) + (1.0572252f * z)).toBigDecimal().setScale(4, RoundingMode.HALF_EVEN).toFloat()
+            ColorType.SRGB -> {
+                val red = (3.2404542f * x) + (-1.5371385f * y) + (-0.4985314f * z)
+                val green = (-0.9692660f * x) + (1.8760108f * y) + (0.0415560f * z)
+                val blue = (0.0556434f * x) + (-0.2040259f * y) + (1.0572252f * z)
 
-                val fixedRed = if (red < 0.001f) 0f else if (red > 1) 1f else red
-                val fixedGreen = if (green < 0.001f) 0f else if (green > 1) 1f else green
-                val fixedBlue = if (blue < 0.001f) 0f else if (blue > 1) 1f else blue
+                val compandingRed = if (red > 0.0031308) {
+                    1.055f * red.pow(0.41666f) - 0.055f
+                } else {
+                    12.92f * red
+                }
 
-                return RGBColor(fixedRed, fixedGreen, fixedBlue, alpha) as T
+                val compandingGreen = if (green > 0.0031308) {
+                    1.055f * green.pow(0.41666f) - 0.055f
+                } else {
+                    12.92f * green
+                }
+
+                val compandingBlue = if (blue > 0.0031308) {
+                    1.055f * blue.pow(0.41666f) - 0.055f
+                } else {
+                    12.92f * blue
+                }
+
+                val correctedRed = compandingRed.toBigDecimal().setScale(4, RoundingMode.HALF_EVEN).toFloat()
+                val correctedGreen = compandingGreen.toBigDecimal().setScale(4, RoundingMode.HALF_EVEN).toFloat()
+                val correctedBlue = compandingBlue.toBigDecimal().setScale(4, RoundingMode.HALF_EVEN).toFloat()
+
+                return SRGBColor(correctedRed.correct(), correctedGreen.correct(), correctedBlue.correct(), alpha) as T
             }
             ColorType.HSV, ColorType.HSB, ColorType.HSL -> {
-                return toSpace(ColorType.RGB).toSpace(color)
+                return toSpace(ColorType.SRGB).toSpace(color)
             }
             else -> throw ColorTypeException("Cannot convert to $color")
         }

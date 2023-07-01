@@ -8,9 +8,10 @@ import app.moreo.ucl.exceptions.GamutException
 import app.moreo.ucl.interfaces.Interpolatable
 import app.moreo.ucl.utils.toRadians
 import kotlin.math.abs
+import kotlin.math.pow
 
 /**
- * RGB color representation
+ * SRGB color representation
  * @property red red between 0 and 1
  * @property green green between 0 and 1
  * @property blue blue between 0 and 1
@@ -20,15 +21,15 @@ import kotlin.math.abs
  * @param blue blue between 0 and 1
  * @param alpha alpha between 0 and 1
  */
-class RGBColor(var red: Float, var green: Float, var blue: Float, override var alpha: Float = 1f): Color, Interpolatable<RGBColor> {
+class SRGBColor(var red: Float, var green: Float, var blue: Float, override var alpha: Float = 1f): Color, Interpolatable<SRGBColor> {
 
     companion object {
         @JvmField
-        val TYPE = ColorType.RGB
+        val TYPE = ColorType.SRGB
     }
 
     /**
-     * RGB color representation
+     * SRGB color representation
      * @property red red between 0 and 1
      * @property green green between 0 and 1
      * @property blue blue between 0 and 1
@@ -39,7 +40,7 @@ class RGBColor(var red: Float, var green: Float, var blue: Float, override var a
      * @param alpha alpha between 0 and 1
      */
     constructor(red: Short, green: Short, blue: Short, alpha: Float = 1f) : this(red / 255f, green / 255f, blue / 255f, alpha) {
-        if (minOf(red, green, blue) < 0 || maxOf(red, green, blue) > 255) throw GamutException("RGB values must be between 0 and 255")
+        if (minOf(red, green, blue) < 0 || maxOf(red, green, blue) > 255) throw GamutException("SRGB values must be between 0 and 255")
     }
 
     @Suppress("UNCHECKED_CAST")
@@ -85,15 +86,19 @@ class RGBColor(var red: Float, var green: Float, var blue: Float, override var a
 
                 return HSLColor(hue.toRadians(), saturation, lightness) as T
             }
-            ColorType.RGB -> {
+            ColorType.SRGB -> {
                 this as T
             }
 
             ColorType.XYZ_D65 -> {
+                val linearRed = if (red <= 0.04045f) red / 12.92f else ((red + 0.055f) / 1.055f).pow(2.4f)
+                val linearGreen = if (green <= 0.04045f) green / 12.92f else ((green + 0.055f) / 1.055f).pow(2.4f)
+                val linearBlue = if (blue <= 0.04045f) blue / 12.92f else ((blue + 0.055f) / 1.055f).pow(2.4f)
+
                 return XYZD65Color(
-                    0.4124f * red + 0.3576f * green + 0.1805f * blue,
-                    0.2126f * red + 0.7152f * green + 0.0722f * blue,
-                    0.0193f * red + 0.1192f * green + 0.9505f * blue
+                    0.4124f * linearRed + 0.3576f * linearGreen + 0.1805f * linearBlue,
+                    0.2126f * linearRed + 0.7152f * linearGreen + 0.0722f * linearBlue,
+                    0.0193f * linearRed + 0.1192f * linearGreen + 0.9505f * linearBlue
                 ) as T
             }
             else -> {
@@ -106,14 +111,14 @@ class RGBColor(var red: Float, var green: Float, var blue: Float, override var a
         return "RGBColor(red=$red, green=$green, blue=$blue, alpha=$alpha)"
     }
 
-    override fun rangeTo(other: Color): ColorInterpolation<RGBColor> {
-        return ColorInterpolation(this, other.toSpace(ColorType.RGB))
+    override fun rangeTo(other: Color): ColorInterpolation<SRGBColor> {
+        return ColorInterpolation(this, other.toSpace(ColorType.SRGB))
     }
 
     override fun equals(other: Any?): Boolean {
         if (other !is Color) return false
 
-        val otherColor = other.toSpace(ColorType.RGB)
+        val otherColor = other.toSpace(ColorType.SRGB)
         return red == otherColor.red && green == otherColor.green && blue == otherColor.blue && alpha == otherColor.alpha
     }
 

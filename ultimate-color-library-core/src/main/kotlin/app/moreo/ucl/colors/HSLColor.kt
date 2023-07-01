@@ -6,6 +6,7 @@ import app.moreo.ucl.enums.ColorType
 import app.moreo.ucl.exceptions.ColorTypeException
 import app.moreo.ucl.interfaces.Interpolatable
 import app.moreo.ucl.utils.TWO_PI
+import app.moreo.ucl.utils.precisionEquals
 import kotlin.math.abs
 import kotlin.math.round
 
@@ -62,7 +63,7 @@ class HSLColor(hue: Float, var saturation: Float, var lightness: Float, override
             ColorType.HSL -> {
                 this as T
             }
-            ColorType.RGB -> {
+            ColorType.SRGB -> {
                 val c = (1 - abs(2 * lightness - 1)) * saturation
                 val hPrime = degreesHue / 60f
                 val x = c * (1 - abs(hPrime.mod(2f) - 1))
@@ -78,10 +79,10 @@ class HSLColor(hue: Float, var saturation: Float, var lightness: Float, override
 
                 val m = lightness - c / 2f
 
-                return RGBColor(r1 + m, g1 + m, b1 + m) as T
+                return SRGBColor(r1 + m, g1 + m, b1 + m) as T
             }
             ColorType.XYZ_D65 -> {
-                return toSpace(ColorType.RGB).toSpace(ColorType.XYZ_D65)
+                return toSpace(ColorType.SRGB).toSpace(ColorType.XYZ_D65)
             }
             else -> {
                 throw ColorTypeException("Color type not supported")
@@ -101,7 +102,7 @@ class HSLColor(hue: Float, var saturation: Float, var lightness: Float, override
         if (other !is Color) return false
 
         val otherHSL = other.toSpace(ColorType.HSL)
-        return hue == otherHSL.hue && saturation == otherHSL.saturation && lightness == otherHSL.lightness && alpha == otherHSL.alpha
+        return hue.precisionEquals(otherHSL.hue) && saturation.precisionEquals(otherHSL.saturation) && lightness.precisionEquals(otherHSL.lightness) && alpha.precisionEquals(otherHSL.alpha)
     }
 
     override fun hashCode(): Int {
