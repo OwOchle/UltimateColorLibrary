@@ -1,5 +1,6 @@
 package app.moreo.ucl.utils
 
+import kotlin.math.abs
 import kotlin.math.floor
 
 /**
@@ -22,3 +23,11 @@ internal fun Float.toRadians(): Float {
 }
 
 internal const val TWO_PI = 2 * Math.PI.toFloat()
+
+internal fun Float.precisionEquals(other: Float, epsilon: Float = 0.01f): Boolean {
+   return abs(this - other) < epsilon
+}
+
+internal fun Float.correct(): Float {
+    return if (this < 0.001f) 0f else if (this > 1) 1f else this
+}

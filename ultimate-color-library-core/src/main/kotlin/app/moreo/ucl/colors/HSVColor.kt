@@ -63,7 +63,7 @@ class HSVColor(hue: Float, var saturation: Float, var value: Float, override var
                 val saturation = if (lightness == 0f || lightness == 1f) 0f else (value - lightness) / minOf(lightness, 1 - lightness)
                 return HSLColor(hue, saturation, lightness) as T
             }
-            ColorType.RGB -> {
+            ColorType.SRGB -> {
                 val c = value * saturation
                 val hPrime = degreesHue / 60f
                 val x = c * (1 - abs(hPrime.mod(2f) - 1))
@@ -80,7 +80,11 @@ class HSVColor(hue: Float, var saturation: Float, var value: Float, override var
 
                 val m = value - c
 
-                return RGBColor(r1 + m, g1 + m, b1 + m, alpha) as T
+                return SRGBColor(r1 + m, g1 + m, b1 + m, alpha) as T
+            }
+
+            ColorType.XYZ_D65 -> {
+                return this.toSpace(ColorType.SRGB).toSpace(ColorType.XYZ_D65)
             }
             else -> {
                 throw ColorTypeException("Color type not supported")

@@ -2,7 +2,7 @@ package app.moreo.ucl
 
 import app.moreo.ucl.colors.HSLColor
 import app.moreo.ucl.colors.HSVColor
-import app.moreo.ucl.colors.RGBColor
+import app.moreo.ucl.colors.SRGBColor
 import app.moreo.ucl.enums.ColorType
 import app.moreo.ucl.enums.InterpolationPath
 import app.moreo.ucl.exceptions.ColorTypeException
@@ -24,7 +24,7 @@ import app.moreo.ucl.utils.interpolate
  */
 class ColorInterpolation<T: Color> (val start: Color, val end: Color): Iterable<T> {
     private var space: ColorType<out Color> = when (start) {
-        is RGBColor -> ColorType.RGB
+        is SRGBColor -> ColorType.SRGB
         is HSVColor -> ColorType.HSV
         is HSLColor -> ColorType.HSL
         else -> throw ColorTypeException("Color type not supported")
@@ -71,7 +71,7 @@ class ColorInterpolation<T: Color> (val start: Color, val end: Color): Iterable<
     @Suppress("UNCHECKED_CAST")
     override fun iterator(): ColorInterpolator<T> {
         return when (space) {
-            ColorType.RGB -> RGBInterpolator(actualStart as RGBColor, actualEnd as RGBColor, steps, path,  numberInterpolator) as ColorInterpolator<T>
+            ColorType.SRGB -> RGBInterpolator(actualStart as SRGBColor, actualEnd as SRGBColor, steps, path,  numberInterpolator) as ColorInterpolator<T>
             ColorType.HSV -> HSVInterpolator(actualStart as HSVColor, actualEnd as HSVColor, steps, path,  numberInterpolator) as ColorInterpolator<T>
             ColorType.HSB -> HSVInterpolator(actualStart as HSVColor, actualEnd as HSVColor, steps, path,  numberInterpolator) as ColorInterpolator<T>
             ColorType.HSL -> HSLInterpolator(actualStart as HSLColor, actualEnd as HSLColor, steps, path, numberInterpolator) as ColorInterpolator<T>
