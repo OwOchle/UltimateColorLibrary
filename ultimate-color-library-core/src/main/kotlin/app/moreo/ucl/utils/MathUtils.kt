@@ -31,3 +31,7 @@ internal fun Float.precisionEquals(other: Float, epsilon: Float = 0.01f): Boolea
 internal fun Float.correct(): Float {
     return if (this < 0.001f) 0f else if (this > 1) 1f else this
 }
+
+internal fun Float.remap(from1: Float, to1: Float, from2: Float, to2: Float): Float {
+    return (this - from1) / (to1 - from1) * (to2 - from2) + from2
+}
