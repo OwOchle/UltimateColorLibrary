@@ -3,6 +3,9 @@ package app.moreo.ucl.utils
 import kotlin.math.abs
 import kotlin.math.floor
 
+
+typealias NumberInterpolator = (Float, Float, Float) -> Float
+
 /**
  * Linearly interpolates between two values.
  * @param a The first value.
@@ -35,3 +38,5 @@ internal fun Float.correct(): Float {
 internal fun Float.remap(from1: Float, to1: Float, from2: Float, to2: Float): Float {
     return (this - from1) / (to1 - from1) * (to2 - from2) + from2
 }
+
+internal const val LAB_DELTA = 6/29f

@@ -3,6 +3,7 @@ package app.moreo.ucl.interpolators
 import app.moreo.ucl.colors.SRGBColor
 import app.moreo.ucl.enums.InterpolationPath
 import app.moreo.ucl.interfaces.ColorInterpolator
+import app.moreo.ucl.utils.NumberInterpolator
 import app.moreo.ucl.utils.interpolate
 import java.util.logging.Logger
 
@@ -15,7 +16,7 @@ import java.util.logging.Logger
  * @property numberInterpolator the number interpolator to use
  */
 class RGBInterpolator(override val start: SRGBColor, override val end: SRGBColor, override val steps: Int,
-                      override val path: InterpolationPath, override val numberInterpolator: (Float, Float, Float) -> Float = ::interpolate):
+                      override val path: InterpolationPath, override val numberInterpolator: NumberInterpolator = ::interpolate):
     ColorInterpolator<SRGBColor> {
 
     init {

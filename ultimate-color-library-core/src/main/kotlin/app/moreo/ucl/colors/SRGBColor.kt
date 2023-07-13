@@ -3,7 +3,7 @@ package app.moreo.ucl.colors
 import app.moreo.ucl.Color
 import app.moreo.ucl.ColorInterpolation
 import app.moreo.ucl.enums.ColorType
-import app.moreo.ucl.exceptions.ColorTypeException
+import app.moreo.ucl.exceptions.ColorConversionException
 import app.moreo.ucl.exceptions.GamutException
 import app.moreo.ucl.interfaces.Interpolatable
 import app.moreo.ucl.utils.precisionEquals
@@ -12,7 +12,7 @@ import kotlin.math.abs
 import kotlin.math.pow
 
 /**
- * SRGB color representation
+ * sRGB color representation
  * @property red red between 0 and 1
  * @property green green between 0 and 1
  * @property blue blue between 0 and 1
@@ -22,8 +22,7 @@ import kotlin.math.pow
  * @param blue blue between 0 and 1
  * @param alpha alpha between 0 and 1
  */
-
-class SRGBColor @JvmOverloads constructor(var red: Float, var green: Float, var blue: Float, override var alpha: Float = 1f): Color, Interpolatable<SRGBColor> {
+class SRGBColor @JvmOverloads constructor(var red: Float, var green: Float, var blue: Float, override var alpha: Float = 1f): Interpolatable<SRGBColor> {
 
     companion object {
         @JvmField
@@ -31,7 +30,7 @@ class SRGBColor @JvmOverloads constructor(var red: Float, var green: Float, var 
     }
 
     /**
-     * SRGB color representation
+     * sRGB color representation
      * @property red red between 0 and 1
      * @property green green between 0 and 1
      * @property blue blue between 0 and 1
@@ -103,8 +102,13 @@ class SRGBColor @JvmOverloads constructor(var red: Float, var green: Float, var 
                     0.0193f * linearRed + 0.1192f * linearGreen + 0.9505f * linearBlue
                 ) as T
             }
+
+            ColorType.LAB -> {
+                return toSpace(ColorType.XYZ_D65).toSpace(ColorType.LAB)
+            }
+
             else -> {
-                throw ColorTypeException("Color type not supported")
+                throw ColorConversionException("Color conversion not supported from sRGB to $color")
             }
         }
     }

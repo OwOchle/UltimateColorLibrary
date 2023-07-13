@@ -3,7 +3,7 @@ package app.moreo.ucl.colors
 import app.moreo.ucl.Color
 import app.moreo.ucl.ColorInterpolation
 import app.moreo.ucl.enums.ColorType
-import app.moreo.ucl.exceptions.ColorTypeException
+import app.moreo.ucl.exceptions.ColorConversionException
 import app.moreo.ucl.interfaces.Interpolatable
 import app.moreo.ucl.utils.TWO_PI
 import kotlin.math.abs
@@ -22,7 +22,7 @@ import kotlin.math.round
  * @param value value between 0 and 1
  * @param alpha alpha between 0 and 1
  */
-class HSVColor @JvmOverloads constructor(hue: Float, var saturation: Float, var value: Float, override var alpha: Float = 1f): Color, Interpolatable<HSVColor> {
+class HSVColor @JvmOverloads constructor(hue: Float, var saturation: Float, var value: Float, override var alpha: Float = 1f): Interpolatable<HSVColor> {
 
     companion object {
         @JvmField
@@ -86,8 +86,13 @@ class HSVColor @JvmOverloads constructor(hue: Float, var saturation: Float, var 
             ColorType.XYZ_D65 -> {
                 return this.toSpace(ColorType.SRGB).toSpace(ColorType.XYZ_D65)
             }
+
+            ColorType.LAB -> {
+                return toSpace(ColorType.XYZ_D65).toSpace(ColorType.LAB)
+            }
+
             else -> {
-                throw ColorTypeException("Color type not supported")
+                throw ColorConversionException("Color conversion not supported from HSV to $color")
             }
         }
     }

@@ -1,10 +1,7 @@
 package app.moreo.ucl.enums
 
 import app.moreo.ucl.Color
-import app.moreo.ucl.colors.HSLColor
-import app.moreo.ucl.colors.HSVColor
-import app.moreo.ucl.colors.SRGBColor
-import app.moreo.ucl.colors.XYZD65Color
+import app.moreo.ucl.colors.*
 
 class ColorType<T: Color> {
     companion object {
@@ -22,5 +19,20 @@ class ColorType<T: Color> {
 
         @JvmField
         val XYZ_D65 = ColorType<XYZD65Color>()
+
+        @JvmField
+        val LAB = ColorType<LabColor>()
+    }
+
+    override fun toString(): String {
+        return when (this) {
+            SRGB -> "sRGB"
+            HSV -> "HSV"
+            HSL -> "HSL"
+            HSB -> "HSB"
+            XYZ_D65 -> "XYZ_D65"
+            LAB -> "L*a*b*"
+            else -> "Unknown"
+        }
     }
 }
