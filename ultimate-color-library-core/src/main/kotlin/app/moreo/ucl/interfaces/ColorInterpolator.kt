@@ -2,6 +2,7 @@ package app.moreo.ucl.interfaces
 
 import app.moreo.ucl.Color
 import app.moreo.ucl.enums.InterpolationPath
+import app.moreo.ucl.utils.NumberInterpolator
 
 /**
  * Represents a color interpolator
@@ -17,5 +18,5 @@ interface ColorInterpolator<T: Color>: Iterator<T> {
     val end: T
     val steps: Int
     val path: InterpolationPath
-    val numberInterpolator: (Float, Float, Float) -> Float
+    val numberInterpolator: NumberInterpolator
 }

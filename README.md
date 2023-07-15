@@ -165,11 +165,11 @@ class Main {
 - RGB
 - HSV (HSB)
 - HSL
+- XYZ
+- LAB
 
 ## Planned Color Spaces
 - CMYK
-- XYZ
-- LAB
 - LCH
 
 ## Planned Features
@@ -181,7 +181,7 @@ class Main {
 
 ## Thanks
 - Bruce Justin Lindbloom for their [color conversion equations](http://www.brucelindbloom.com/index.html?Math.html)
-- ColorMine for their [color converter](https://colormine.org/color-converter) which is the one I used to create the tests
+- ColorMine for their [color converter](https://colormine.org/color-converter) which is the one I use to create the tests
 
 ## Links
 - [Javadoc](https://docs.moreo.app/ucl/javadoc)

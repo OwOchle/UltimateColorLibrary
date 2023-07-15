@@ -2,6 +2,7 @@ import app.moreo.ucl.colors.HSLColor;
 import app.moreo.ucl.colors.SRGBColor;
 import app.moreo.ucl.colors.XYZD65Color;
 import app.moreo.ucl.enums.ColorType;
+import kotlin.test.junit5.JUnit5Asserter;
 import org.junit.jupiter.api.Test;
 
 public class TestXYZD65ColorJava {
@@ -28,19 +29,19 @@ public class TestXYZD65ColorJava {
 
     @Test
     public void otherToXyz() {
-        assert xyzRed.equals(red.toSpace(ColorType.XYZ_D65));
+        JUnit5Asserter.INSTANCE.assertEquals("red to xyz", xyzRed, red.toSpace(ColorType.XYZ_D65));
 
-        assert xyzWhite.equals(white.toSpace(ColorType.XYZ_D65));
+        JUnit5Asserter.INSTANCE.assertEquals("white to xyz", xyzWhite, white.toSpace(ColorType.XYZ_D65));
 
-        assert xyzTestingColor.equals(hslTestingColor.toSpace(ColorType.XYZ_D65));
+        JUnit5Asserter.INSTANCE.assertEquals("hsl to xyz", xyzTestingColor, hslTestingColor.toSpace(ColorType.XYZ_D65));
     }
 
     @Test
     public void xyzToOther() {
-        assert red.equals(xyzRed.toSpace(ColorType.SRGB));
+        JUnit5Asserter.INSTANCE.assertEquals("redXyz to rgb", red, xyzRed.toSpace(ColorType.SRGB));
 
-        assert white.equals(xyzWhite.toSpace(ColorType.SRGB));
+        JUnit5Asserter.INSTANCE.assertEquals("whiteXyz to rgb", xyzTestingColor, hslTestingColor.toSpace(ColorType.XYZ_D65));
 
-        assert hslTestingColor.equals(xyzTestingColor.toSpace(ColorType.HSL));
+        JUnit5Asserter.INSTANCE.assertEquals("xyzTesting to hsl", hslTestingColor, xyzTestingColor.toSpace(ColorType.HSL));
     }
 }

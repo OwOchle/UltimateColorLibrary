@@ -1,4 +1,3 @@
 package app.moreo.ucl.exceptions
 
-class ColorTypeException(message: String): IllegalArgumentException(message) {
-}
+class ColorTypeException(message: String): IllegalArgumentException(message)

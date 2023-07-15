@@ -2,7 +2,8 @@ package app.moreo.ucl.colors
 
 import app.moreo.ucl.Color
 import app.moreo.ucl.enums.ColorType
-import app.moreo.ucl.exceptions.ColorTypeException
+import app.moreo.ucl.exceptions.ColorConversionException
+import app.moreo.ucl.utils.LAB_DELTA
 import app.moreo.ucl.utils.correct
 import app.moreo.ucl.utils.precisionEquals
 import java.math.RoundingMode
@@ -12,7 +13,21 @@ class XYZD65Color @JvmOverloads constructor(var x: Float, var y: Float, var z: F
 
     companion object {
         @JvmField
-        val type: ColorType<XYZD65Color> = ColorType.XYZ_D65
+        val TYPE: ColorType<XYZD65Color> = ColorType.XYZ_D65
+
+        @JvmField
+        val D65_REFERENCE_WHITE = XYZD65Color(0.95047f, 1f, 1.08883f)
+    }
+
+    /**
+     *
+     */
+    private fun f(t: Float): Float {
+        if (t > LAB_DELTA.pow(3)) {
+            return t.pow(1f/3f)
+        }
+
+        return (t / (3 * LAB_DELTA.pow(2))) + (4f/29f)
     }
 
     @Suppress("UNCHECKED_CAST")
@@ -46,18 +61,26 @@ class XYZD65Color @JvmOverloads constructor(var x: Float, var y: Float, var z: F
                 val correctedGreen = compandingGreen.toBigDecimal().setScale(4, RoundingMode.HALF_EVEN).toFloat()
                 val correctedBlue = compandingBlue.toBigDecimal().setScale(4, RoundingMode.HALF_EVEN).toFloat()
 
-                return SRGBColor(correctedRed.correct(), correctedGreen.correct(), correctedBlue.correct(), alpha) as T
+                SRGBColor(correctedRed.correct(), correctedGreen.correct(), correctedBlue.correct(), alpha) as T
             }
             ColorType.HSV, ColorType.HSB, ColorType.HSL -> {
-                return toSpace(ColorType.SRGB).toSpace(color)
+                toSpace(ColorType.SRGB).toSpace(color)
             }
-            else -> throw ColorTypeException("Cannot convert to $color")
+
+            ColorType.LAB -> {
+                val l = 116f * f(y / D65_REFERENCE_WHITE.y) - 16f
+                val a = 500f * (f(x / D65_REFERENCE_WHITE.x) - f(y / D65_REFERENCE_WHITE.y))
+                val b = 200f * (f(y / D65_REFERENCE_WHITE.y) - f(z / D65_REFERENCE_WHITE.z))
+
+                LabColor(l, a, b, alpha) as T
+            }
+            else -> throw ColorConversionException("Color conversion not supported from L*a*b* to $color")
         }
     }
 
     override fun equals(other: Any?): Boolean {
         if (other !is Color) return false
-        val otherXYZ = other.toSpace(type)
+        val otherXYZ = other.toSpace(TYPE)
         return x.precisionEquals(otherXYZ.x) && y.precisionEquals(otherXYZ.y) && z.precisionEquals(otherXYZ.z) && alpha.precisionEquals(otherXYZ.alpha)
     }
 

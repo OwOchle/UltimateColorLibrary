@@ -7,7 +7,7 @@ import app.moreo.ucl.ColorInterpolation
  * An interface to mark a color as interpolatable
  * @param T The color type
  */
-interface Interpolatable<T: Color> {
+interface Interpolatable<T: Color>: Color {
 
     /**
      * Kotlin range to operator for color interpolation

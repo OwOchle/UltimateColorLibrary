@@ -3,6 +3,7 @@ package app.moreo.ucl.interpolators
 import app.moreo.ucl.colors.HSLColor
 import app.moreo.ucl.enums.InterpolationPath
 import app.moreo.ucl.interfaces.ColorInterpolator
+import app.moreo.ucl.utils.NumberInterpolator
 import app.moreo.ucl.utils.TWO_PI
 import app.moreo.ucl.utils.interpolate
 
@@ -15,7 +16,7 @@ import app.moreo.ucl.utils.interpolate
  * @property numberInterpolator the number interpolator to use
  */
 class HSLInterpolator(override val start: HSLColor, override val end: HSLColor, override val steps: Int,
-                      override val path: InterpolationPath, override val numberInterpolator: (Float, Float, Float) -> Float = ::interpolate):
+                      override val path: InterpolationPath, override val numberInterpolator: NumberInterpolator = ::interpolate):
     ColorInterpolator<HSLColor> {
     private var currentStep = 0
 

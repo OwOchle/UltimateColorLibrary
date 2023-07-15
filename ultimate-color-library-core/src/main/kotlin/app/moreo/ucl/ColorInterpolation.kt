@@ -2,15 +2,19 @@ package app.moreo.ucl
 
 import app.moreo.ucl.colors.HSLColor
 import app.moreo.ucl.colors.HSVColor
+import app.moreo.ucl.colors.LabColor
 import app.moreo.ucl.colors.SRGBColor
 import app.moreo.ucl.enums.ColorType
 import app.moreo.ucl.enums.InterpolationPath
 import app.moreo.ucl.exceptions.ColorTypeException
 import app.moreo.ucl.exceptions.InterpolationException
 import app.moreo.ucl.interfaces.ColorInterpolator
+import app.moreo.ucl.interfaces.Interpolatable
 import app.moreo.ucl.interpolators.HSLInterpolator
 import app.moreo.ucl.interpolators.HSVInterpolator
+import app.moreo.ucl.interpolators.LabInterpolator
 import app.moreo.ucl.interpolators.RGBInterpolator
+import app.moreo.ucl.utils.NumberInterpolator
 import app.moreo.ucl.utils.interpolate
 
 /**
@@ -27,7 +31,8 @@ class ColorInterpolation<T: Color> (val start: Color, val end: Color): Iterable<
         is SRGBColor -> ColorType.SRGB
         is HSVColor -> ColorType.HSV
         is HSLColor -> ColorType.HSL
-        else -> throw ColorTypeException("Color type not supported")
+        is LabColor -> ColorType.LAB
+        else -> throw ColorTypeException("This color is not supported for interpolation")
     }
         set(value) {
             if (field != value) {
@@ -42,13 +47,13 @@ class ColorInterpolation<T: Color> (val start: Color, val end: Color): Iterable<
     private var actualStart = start
     private var actualEnd = end.toSpace(space)
 
-    private var numberInterpolator: (Float, Float, Float) -> Float = ::interpolate
+    private var numberInterpolator: NumberInterpolator = ::interpolate
 
     private var path: InterpolationPath = InterpolationPath.SHORTEST
 
 
     @Suppress("UNCHECKED_CAST")
-    infix fun <N: Color> space(colorType: ColorType<N>): ColorInterpolation<N> {
+    infix fun <N: Interpolatable<Color>> space(colorType: ColorType<N>): ColorInterpolation<N> {
         this.space = colorType
         return this as ColorInterpolation<N>
     }
@@ -58,7 +63,7 @@ class ColorInterpolation<T: Color> (val start: Color, val end: Color): Iterable<
         return this
     }
 
-    infix fun numberInterpolator(numberInterpolator: (Float, Float, Float) -> Float): ColorInterpolation<T> {
+    infix fun numberInterpolator(numberInterpolator: NumberInterpolator): ColorInterpolation<T> {
         this.numberInterpolator = numberInterpolator
         return this
     }
@@ -75,6 +80,7 @@ class ColorInterpolation<T: Color> (val start: Color, val end: Color): Iterable<
             ColorType.HSV -> HSVInterpolator(actualStart as HSVColor, actualEnd as HSVColor, steps, path,  numberInterpolator) as ColorInterpolator<T>
             ColorType.HSB -> HSVInterpolator(actualStart as HSVColor, actualEnd as HSVColor, steps, path,  numberInterpolator) as ColorInterpolator<T>
             ColorType.HSL -> HSLInterpolator(actualStart as HSLColor, actualEnd as HSLColor, steps, path, numberInterpolator) as ColorInterpolator<T>
+            ColorType.LAB -> LabInterpolator(actualStart as LabColor, actualEnd as LabColor, steps, path, numberInterpolator) as ColorInterpolator<T>
             else -> throw InterpolationException("Color type not supported")
         }
     }
