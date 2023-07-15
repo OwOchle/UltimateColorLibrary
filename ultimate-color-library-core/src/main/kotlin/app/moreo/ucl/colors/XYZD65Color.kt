@@ -13,7 +13,7 @@ class XYZD65Color @JvmOverloads constructor(var x: Float, var y: Float, var z: F
 
     companion object {
         @JvmField
-        val type: ColorType<XYZD65Color> = ColorType.XYZ_D65
+        val TYPE: ColorType<XYZD65Color> = ColorType.XYZ_D65
 
         @JvmField
         val D65_REFERENCE_WHITE = XYZD65Color(0.95047f, 1f, 1.08883f)
@@ -80,7 +80,7 @@ class XYZD65Color @JvmOverloads constructor(var x: Float, var y: Float, var z: F
 
     override fun equals(other: Any?): Boolean {
         if (other !is Color) return false
-        val otherXYZ = other.toSpace(type)
+        val otherXYZ = other.toSpace(TYPE)
         return x.precisionEquals(otherXYZ.x) && y.precisionEquals(otherXYZ.y) && z.precisionEquals(otherXYZ.z) && alpha.precisionEquals(otherXYZ.alpha)
     }
 
