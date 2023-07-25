@@ -13,6 +13,8 @@ val SINGLE_CHARACTER_REGEX = Regex("(.)")
 
 /**
  * Converts a color to a Minecraft color usable in chat
+ * @param format The format to use
+ * @return The color as a string
  */
 @JvmOverloads
 fun Color.toChatColor(format: ChatColorFormat = ChatColorFormat.AMPERSAND): String {
