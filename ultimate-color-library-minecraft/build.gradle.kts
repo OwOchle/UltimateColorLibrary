@@ -6,8 +6,8 @@ plugins {
     `maven-publish`
 }
 
-group = "app.moreo"
 version = parent?.version ?: "?-SNAPSHOT"
+group = "app.moreo.ucl"
 
 repositories {
     mavenCentral()

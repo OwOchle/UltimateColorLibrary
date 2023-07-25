@@ -5,6 +5,7 @@ import app.moreo.ucl.ColorInterpolation
 import app.moreo.ucl.enums.ColorType
 import app.moreo.ucl.exceptions.ColorConversionException
 import app.moreo.ucl.exceptions.GamutException
+import app.moreo.ucl.interfaces.Copyable
 import app.moreo.ucl.interfaces.Interpolatable
 import app.moreo.ucl.utils.precisionEquals
 import app.moreo.ucl.utils.toRadians
@@ -22,11 +23,25 @@ import kotlin.math.pow
  * @param blue blue between 0 and 1
  * @param alpha alpha between 0 and 1
  */
-class SRGBColor @JvmOverloads constructor(var red: Float, var green: Float, var blue: Float, override var alpha: Float = 1f): Interpolatable<SRGBColor> {
+class SRGBColor @JvmOverloads constructor(var red: Float, var green: Float, var blue: Float, override var alpha: Float = 1f): Interpolatable<SRGBColor>, Copyable<SRGBColor> {
 
     companion object {
         @JvmField
         val TYPE = ColorType.SRGB
+
+        /**
+         * Converts an integer to a SRGBColor
+         * @param color The integer representing the color
+         * @return The color
+         */
+        @JvmStatic
+        fun fromInt(color: Int): SRGBColor {
+            val red = (color shr 16) and 0xff
+            val green = (color shr 8) and 0xff
+            val blue = color and 0xff
+
+            return SRGBColor(red, green, blue)
+        }
     }
 
     /**
@@ -41,6 +56,10 @@ class SRGBColor @JvmOverloads constructor(var red: Float, var green: Float, var 
      * @param alpha alpha between 0 and 1
      */
     @JvmOverloads constructor(red: Short, green: Short, blue: Short, alpha: Float = 1f) : this(red / 255f, green / 255f, blue / 255f, alpha) {
+        if (minOf(red, green, blue) < 0 || maxOf(red, green, blue) > 255) throw GamutException("SRGB values must be between 0 and 255")
+    }
+
+    @JvmOverloads constructor(red: Int, green: Int, blue: Int, alpha: Float = 1f) : this(red / 255f, green / 255f, blue / 255f, alpha) {
         if (minOf(red, green, blue) < 0 || maxOf(red, green, blue) > 255) throw GamutException("SRGB values must be between 0 and 255")
     }
 
@@ -138,5 +157,9 @@ class SRGBColor @JvmOverloads constructor(var red: Float, var green: Float, var 
         result = 31 * result + blue.hashCode()
         result = 31 * result + alpha.hashCode()
         return result
+    }
+
+    override fun copy(): SRGBColor {
+        return SRGBColor(red, green, blue, alpha)
     }
 }

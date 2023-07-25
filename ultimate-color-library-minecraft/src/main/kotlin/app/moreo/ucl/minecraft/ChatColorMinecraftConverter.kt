@@ -3,12 +3,6 @@ package app.moreo.ucl.minecraft
 import app.moreo.ucl.Color
 import app.moreo.ucl.enums.ColorType
 
-enum class ChatColorFormat {
-    AMPERSAND,
-    AMPERSAND_LEGACY,
-    SECTION;
-}
-
 val SINGLE_CHARACTER_REGEX = Regex("(.)")
 
 /**
@@ -18,10 +12,19 @@ val SINGLE_CHARACTER_REGEX = Regex("(.)")
  */
 @JvmOverloads
 fun Color.toChatColor(format: ChatColorFormat = ChatColorFormat.AMPERSAND): String {
-    val rgbColor = this.toSpace(ColorType.SRGB)
+    return colorToChatColor(this, format)
+}
+
+/**
+ * Converts a color to a Minecraft color usable in chat
+ * @param format The format to use
+ * @return The color as a string
+ */
+@JvmOverloads
+fun colorToChatColor(color: Color, format: ChatColorFormat = ChatColorFormat.AMPERSAND): String {
+    val rgbColor = color.toSpace(ColorType.SRGB)
     return when(format) {
         ChatColorFormat.AMPERSAND -> {
-            println(rgbColor)
             "&#" + (rgbColor.red * 255).toInt().toString(16).padStart(2, '0') + (rgbColor.green * 255).toInt().toString(16).padStart(2, '0') + (rgbColor.blue * 255).toInt().toString(16).padStart(2, '0')
         }
 

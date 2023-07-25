@@ -1,6 +1,7 @@
 import app.moreo.ucl.Color
 import app.moreo.ucl.colors.SRGBColor
 import app.moreo.ucl.enums.ColorType
+import app.moreo.ucl.extensions.toSRGBColor
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 
@@ -36,5 +37,26 @@ class PrimaryTest {
 
         val color2 = Color.fromString("rgb(153 204 0 / .8)", ColorType.SRGB)
         assertEquals(color2, shortHexColor, "Color is not correct $color2")
+    }
+
+    @Test
+    fun `kotlin integer to color conversion test`() {
+        val color = SRGBColor.fromInt(9879650)
+        assertEquals(testingColor, color, "Color is not correct $color")
+
+        val copied = shortHexColor.copy()
+        copied.alpha = 1f
+
+        val color2 = 10079232.toSRGBColor()
+        assertEquals(copied, color2, "Color is not correct $color2")
+    }
+
+    @Test
+    fun `kotlin color to integer conversion test`() {
+        val color = testingColor.toInt()
+        assertEquals(9879650, color, "Color is not correct $color")
+
+        val color2 = shortHexColor.toInt()
+        assertEquals(10079232, color2, "Color is not correct $color2")
     }
 }
