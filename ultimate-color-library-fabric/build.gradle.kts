@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "app.moreo"
-version = "0.0.8-alpha-SNAPSHOT"
+version = parent?.version ?: "?-SNAPSHOT"
 
 repositories {
     mavenCentral()

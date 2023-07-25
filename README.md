@@ -12,15 +12,17 @@ As of now, the library is Ultimate only by name, but I hope to be able to suppor
 
 ## Installation
 
-The latest version is ``0.0.8-alpha-SNAPSHOT``
+The latest version is ``0.0.9-alpha-SNAPSHOT``
 
 The latest stable version is ``0.0.6-alpha``
 
 Branches available :
-- ``bukkit``
 - ``core``
+  - ``minecraft``
+    - ``bukkit``
+  - ``serialization``
 
-All branches other than ``core`` contains the ``core`` module, so you don't need to add it to your dependencies if you use one of these branches.
+The indentation represent the dependencies of branches on each other, you just need to import the highest branch you need to have access to all the upper branches. i.e. if you install ``bukkit``, you will get access to ``minecraft`` and ``core`` dependencies.
 
 <details>
 <summary> Gradle Groovy </summary>
