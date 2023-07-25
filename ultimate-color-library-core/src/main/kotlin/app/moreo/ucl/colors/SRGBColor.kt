@@ -128,6 +128,10 @@ class SRGBColor @JvmOverloads constructor(var red: Float, var green: Float, var 
         return red.precisionEquals(otherSRGB.red) && green.precisionEquals(otherSRGB.green) && blue.precisionEquals(otherSRGB.blue) && alpha.precisionEquals(otherSRGB.alpha)
     }
 
+    fun toInt(): Int {
+        return (red * 255).toInt() shl 16 or ((green * 255).toInt() shl 8) or (blue * 255).toInt()
+    }
+
     override fun hashCode(): Int {
         var result = red.hashCode()
         result = 31 * result + green.hashCode()
