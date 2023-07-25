@@ -16,7 +16,7 @@ repositories {
 
 dependencies {
     implementation("org.spigotmc:spigot-api:1.19.4-R0.1-SNAPSHOT")
-    api(project(":ultimate-color-library-core"))
+    api(project(":ultimate-color-library-minecraft"))
     testImplementation(kotlin("test"))
 }
 
