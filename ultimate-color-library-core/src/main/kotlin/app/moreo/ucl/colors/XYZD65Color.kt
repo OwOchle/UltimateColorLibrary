@@ -74,7 +74,7 @@ class XYZD65Color @JvmOverloads constructor(var x: Float, var y: Float, var z: F
 
                 LabColor(l, a, b, alpha) as T
             }
-            else -> throw ColorConversionException("Color conversion not supported from L*a*b* to $color")
+            else -> throw ColorConversionException("Color conversion not supported from XYZD65 to $color")
         }
     }
 
