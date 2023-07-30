@@ -3,13 +3,14 @@ package app.moreo.ucl.colors
 import app.moreo.ucl.Color
 import app.moreo.ucl.enums.ColorType
 import app.moreo.ucl.exceptions.ColorConversionException
+import app.moreo.ucl.interfaces.Copyable
 import app.moreo.ucl.utils.LAB_DELTA
 import app.moreo.ucl.utils.correct
 import app.moreo.ucl.utils.precisionEquals
 import java.math.RoundingMode
 import kotlin.math.pow
 
-class XYZD65Color @JvmOverloads constructor(var x: Float, var y: Float, var z: Float, override var alpha: Float = 1f): Color {
+class XYZD65Color @JvmOverloads constructor(var x: Float, var y: Float, var z: Float, override var alpha: Float = 1f): Color, Copyable<XYZD65Color> {
 
     companion object {
         @JvmField
@@ -94,5 +95,9 @@ class XYZD65Color @JvmOverloads constructor(var x: Float, var y: Float, var z: F
         result = 31 * result + z.hashCode()
         result = 31 * result + alpha.hashCode()
         return result
+    }
+
+    override fun copy(): XYZD65Color {
+        return XYZD65Color(x, y, z, alpha)
     }
 }

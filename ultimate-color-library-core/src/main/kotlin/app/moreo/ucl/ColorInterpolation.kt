@@ -13,7 +13,7 @@ import app.moreo.ucl.interfaces.Interpolatable
 import app.moreo.ucl.interpolators.HSLInterpolator
 import app.moreo.ucl.interpolators.HSVInterpolator
 import app.moreo.ucl.interpolators.LabInterpolator
-import app.moreo.ucl.interpolators.RGBInterpolator
+import app.moreo.ucl.interpolators.SRGBInterpolator
 import app.moreo.ucl.utils.NumberInterpolator
 import app.moreo.ucl.utils.interpolate
 
@@ -76,7 +76,7 @@ class ColorInterpolation<T: Color> (val start: Color, val end: Color): Iterable<
     @Suppress("UNCHECKED_CAST")
     override fun iterator(): ColorInterpolator<T> {
         return when (space) {
-            ColorType.SRGB -> RGBInterpolator(actualStart as SRGBColor, actualEnd as SRGBColor, steps, path,  numberInterpolator) as ColorInterpolator<T>
+            ColorType.SRGB -> SRGBInterpolator(actualStart as SRGBColor, actualEnd as SRGBColor, steps, path,  numberInterpolator) as ColorInterpolator<T>
             ColorType.HSV -> HSVInterpolator(actualStart as HSVColor, actualEnd as HSVColor, steps, path,  numberInterpolator) as ColorInterpolator<T>
             ColorType.HSB -> HSVInterpolator(actualStart as HSVColor, actualEnd as HSVColor, steps, path,  numberInterpolator) as ColorInterpolator<T>
             ColorType.HSL -> HSLInterpolator(actualStart as HSLColor, actualEnd as HSLColor, steps, path, numberInterpolator) as ColorInterpolator<T>

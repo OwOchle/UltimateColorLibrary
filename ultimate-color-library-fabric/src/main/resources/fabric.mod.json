@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "id": "ultimate-color-library",
+  "version": "${version}",
+  "name": "Ultimate Color Library",
+  "description": "Just a library for colors",
+  "authors": [
+    "MoréOwO"
+  ],
+  "icon": "assets/icon.png",
+  "contact": {
+    "homepage": "https://github.com/MoreOwO/UltimateColorLibrary",
+    "sources": "https://github.com/MoreOwO/UltimateColorLibrary"
+  },
+  "license": "CC-BY-SA 4.0",
+  "environment": "*",
+  "depends": {
+    "fabricloader": ">=0.14.21",
+    "minecraft": "*",
+    "java": ">=17",
+    "fabric-language-kotlin": ">=1.8.10"
+  }
+}

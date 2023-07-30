@@ -15,8 +15,8 @@ import java.util.logging.Logger
  * @property path the [InterpolationPath] to use
  * @property numberInterpolator the number interpolator to use
  */
-class RGBInterpolator(override val start: SRGBColor, override val end: SRGBColor, override val steps: Int,
-                      override val path: InterpolationPath, override val numberInterpolator: NumberInterpolator = ::interpolate):
+class SRGBInterpolator(override val start: SRGBColor, override val end: SRGBColor, override val steps: Int,
+                       override val path: InterpolationPath, override val numberInterpolator: NumberInterpolator = ::interpolate):
     ColorInterpolator<SRGBColor> {
 
     init {
@@ -32,12 +32,17 @@ class RGBInterpolator(override val start: SRGBColor, override val end: SRGBColor
     override fun next(): SRGBColor {
         val time = currentStep.toFloat() / (steps - 1)
 
-        val r = numberInterpolator(start.red, end.red, time)
-        val g = numberInterpolator(start.green, end.green, time)
-        val b = numberInterpolator(start.blue, end.blue, time)
+        val offset = when (path) {
+            InterpolationPath.SHORTEST -> 0f
+            InterpolationPath.LONGEST -> 1f
+        }
+
+        val r = numberInterpolator(start.red, end.red + offset, time)
+        val g = numberInterpolator(start.green, end.green + offset, time)
+        val b = numberInterpolator(start.blue, end.blue + offset, time)
         val alpha = numberInterpolator(start.alpha, end.alpha, time)
         currentStep++
 
-        return SRGBColor(r, g, b, alpha)
+        return SRGBColor(r.mod(1f + Math.ulp(1f)), g.mod(1f + Math.ulp(1f)), b.mod(1f + Math.ulp(1f)), alpha)
     }
 }

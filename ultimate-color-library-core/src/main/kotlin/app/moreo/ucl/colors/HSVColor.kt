@@ -4,7 +4,9 @@ import app.moreo.ucl.Color
 import app.moreo.ucl.ColorInterpolation
 import app.moreo.ucl.enums.ColorType
 import app.moreo.ucl.exceptions.ColorConversionException
+import app.moreo.ucl.interfaces.Copyable
 import app.moreo.ucl.interfaces.Interpolatable
+import app.moreo.ucl.utils.BoundedFloat
 import app.moreo.ucl.utils.TWO_PI
 import kotlin.math.abs
 import kotlin.math.round
@@ -22,20 +24,26 @@ import kotlin.math.round
  * @param value value between 0 and 1
  * @param alpha alpha between 0 and 1
  */
-class HSVColor @JvmOverloads constructor(hue: Float, var saturation: Float, var value: Float, override var alpha: Float = 1f): Interpolatable<HSVColor> {
+class HSVColor @JvmOverloads constructor(hue: Float, saturation: Float, value: Float, alpha: Float = 1f): Interpolatable<HSVColor>, Copyable<HSVColor> {
 
     companion object {
         @JvmField
         val TYPE = ColorType.HSV
     }
 
-    var hue: Float = hue.mod(TWO_PI)
+    var hue: Float by BoundedFloat(hue, 0f, TWO_PI)
 
     var degreesHue: Int
         inline get() = round(Math.toDegrees(hue.toDouble())).toInt()
         inline set(value) {
             hue = Math.toRadians(value.toDouble()).toFloat()
         }
+
+    var saturation: Float by BoundedFloat(saturation, 0f, 1f);
+
+    var value: Float by BoundedFloat(value, 0f, 1f);
+
+    override var alpha by BoundedFloat(alpha, 0f, 1f)
 
     /**
      * HSV color representation
@@ -118,5 +126,9 @@ class HSVColor @JvmOverloads constructor(hue: Float, var saturation: Float, var 
         result = 31 * result + value.hashCode()
         result = 31 * result + alpha.hashCode()
         return result
+    }
+
+    override fun copy(): HSVColor {
+        return HSVColor(hue, saturation, value, alpha)
     }
 }

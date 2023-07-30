@@ -1,4 +1,5 @@
 import app.moreo.ucl.Color
+import app.moreo.ucl.colors.HSVColor
 import app.moreo.ucl.colors.SRGBColor
 import app.moreo.ucl.enums.ColorType
 import app.moreo.ucl.extensions.toSRGBColor
@@ -16,6 +17,20 @@ class PrimaryTest {
         assertEquals(hsl.degreesHue, 87, "Hue is not correct")
         assertEquals(hsl.saturation.toDouble(), .427, 0.01, "Saturation is not correct")
         assertEquals(hsl.lightness.toDouble(), .569, .01, "Lightness is not correct")
+
+
+    }
+
+    @Test
+    fun `kotlin test bounding`() {
+        val whiteIfTooHigh = SRGBColor(15865, 1945, 1645, 25f)
+        assertEquals(SRGBColor(255, 255, 255, 1f), whiteIfTooHigh, "Color is not correct")
+
+        val blackIfTooLow = SRGBColor(-15865, -1945, -1645, -25f)
+        assertEquals(SRGBColor(0, 0, 0, 0f), blackIfTooLow, "Color is not correct")
+
+        val modTest = HSVColor(360, 100, 100)
+        assertEquals(HSVColor(0, 100, 100), modTest, "Color is not correct")
     }
 
     @Test

@@ -6,6 +6,7 @@ import app.moreo.ucl.interfaces.ColorInterpolator
 import app.moreo.ucl.utils.NumberInterpolator
 import app.moreo.ucl.utils.TWO_PI
 import app.moreo.ucl.utils.interpolate
+import kotlin.math.abs
 
 /**
  * HSV space color interpolator
@@ -19,6 +20,23 @@ class HSVInterpolator(override val start: HSVColor, override val end: HSVColor, 
                       override val path: InterpolationPath, override val numberInterpolator: NumberInterpolator = ::interpolate):
     ColorInterpolator<HSVColor> {
     private var currentStep = 0
+    private var offset = 0f
+
+    init {
+        offset = if (path == InterpolationPath.LONGEST) {
+            if (abs(start.hue - end.hue) > abs(start.hue - (end.hue + TWO_PI))) {
+                0f
+            } else {
+                TWO_PI
+            }
+        } else {
+            if (abs(start.hue - end.hue) > abs(start.hue - (end.hue + TWO_PI))) {
+                TWO_PI
+            } else {
+                0f
+            }
+        }
+    }
 
     override fun hasNext(): Boolean {
         return currentStep < steps
@@ -27,10 +45,6 @@ class HSVInterpolator(override val start: HSVColor, override val end: HSVColor, 
     override fun next(): HSVColor {
         val time = currentStep.toFloat() / (steps - 1)
 
-        val offset = when (path) {
-            InterpolationPath.SHORTEST -> 0f
-            InterpolationPath.LONGEST -> TWO_PI
-        }
 
         val hue = numberInterpolator(start.hue, end.hue + offset, time)
         val saturation = numberInterpolator(start.saturation, end.saturation, time)

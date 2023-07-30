@@ -5,6 +5,7 @@ import app.moreo.ucl.ColorInterpolation
 import app.moreo.ucl.enums.ColorType
 import app.moreo.ucl.exceptions.ColorConversionException
 import app.moreo.ucl.interfaces.Interpolatable
+import app.moreo.ucl.utils.BoundedFloat
 import app.moreo.ucl.utils.TWO_PI
 import app.moreo.ucl.utils.precisionEquals
 import kotlin.math.abs
@@ -23,20 +24,26 @@ import kotlin.math.round
  * @param lightness lightness between 0 and 1
  * @param alpha alpha between 0 and 1
  */
-class HSLColor @JvmOverloads constructor(hue: Float, var saturation: Float, var lightness: Float, override var alpha: Float = 1f): Interpolatable<HSLColor> {
+class HSLColor @JvmOverloads constructor(hue: Float, saturation: Float, lightness: Float, alpha: Float = 1f): Interpolatable<HSLColor> {
 
     companion object {
         @JvmField
         val TYPE = ColorType.HSL
     }
 
-    var hue: Float = hue.mod(TWO_PI)
+    var hue by BoundedFloat(hue, 0f, TWO_PI)
 
     var degreesHue: Int
         inline get() = round(Math.toDegrees(hue.toDouble())).toInt()
         inline set(value) {
             hue = Math.toRadians(value.toDouble()).toFloat()
         }
+
+    var saturation by BoundedFloat(saturation, 0f, 1f)
+
+    var lightness by BoundedFloat(lightness, 0f, 1f)
+
+    override var alpha by BoundedFloat(alpha, 0f, 1f)
 
     /**
      * HSL color representation

@@ -15,7 +15,7 @@ class LabInterpolator(
     override val numberInterpolator: NumberInterpolator = ::interpolate
 ): ColorInterpolator<LabColor> {
     init {
-        if (path != InterpolationPath.SHORTEST) Logger.getLogger("UltimateColorLibrary").warning("SRGB interpolation only supports SHORTEST interpolation path. Ignoring interpolation path.")
+        if (path != InterpolationPath.SHORTEST) Logger.getLogger("UltimateColorLibrary").warning("Lab interpolation only supports SHORTEST interpolation path. Ignoring interpolation path.")
     }
 
     private var currentStep = 0

@@ -4,6 +4,8 @@
 [![Sonatype status](https://img.shields.io/nexus/releases/app.moreo/ultimate-color-library-core?server=https%3A%2F%2Fs01.oss.sonatype.org&style=for-the-badge&label=NEXUS-RELEASE)](https://s01.oss.sonatype.org/content/repositories/releases/app/moreo/ultimate-color-library-core/)
 [![Maven central status](https://img.shields.io/maven-metadata/v.svg?label=maven-central&metadataUrl=https%3A%2F%2Frepo1.maven.org%2Fmaven2%2Fapp%2Fmoreo%2Fultimate-color-library-core%2Fmaven-metadata.xml&style=for-the-badge)](https://central.sonatype.com/artifact/app.moreo/ultimate-color-library-core/)
 [![License](https://img.shields.io/badge/LICENSE-CC--BY--SA-%23EF9421?style=for-the-badge&logo=creativecommons)](http://creativecommons.org/licenses/by-sa/4.0/)
+[![Modrinth](https://img.shields.io/modrinth/dt/ultimate-color-library?style=for-the-badge&logo=modrinth)](https://modrinth.com/mod/ultimate-color-library)
+
 ## Concept
 The ultimate color library was created because I found myself unable to easily convert colors and make gradients.
 The origin of my idea is the js library [Color.js](https://colorjs.io/)
@@ -20,6 +22,7 @@ Branches available :
 - ``core``
   - ``minecraft``
     - ``bukkit``
+    - ``fabric``
   - ``serialization``
 
 The indentation represent the dependencies of branches on each other, you just need to import the highest branch you need to have access to all the upper branches. i.e. if you install ``bukkit``, you will get access to ``minecraft`` and ``core`` dependencies.

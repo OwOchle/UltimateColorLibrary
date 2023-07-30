@@ -9,3 +9,4 @@ import app.moreo.ucl.colors.SRGBColor
 fun Int.toSRGBColor(): SRGBColor {
     return SRGBColor.fromInt(this)
 }
+

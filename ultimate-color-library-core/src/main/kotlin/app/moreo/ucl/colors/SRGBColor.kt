@@ -4,9 +4,9 @@ import app.moreo.ucl.Color
 import app.moreo.ucl.ColorInterpolation
 import app.moreo.ucl.enums.ColorType
 import app.moreo.ucl.exceptions.ColorConversionException
-import app.moreo.ucl.exceptions.GamutException
 import app.moreo.ucl.interfaces.Copyable
 import app.moreo.ucl.interfaces.Interpolatable
+import app.moreo.ucl.utils.BoundedFloat
 import app.moreo.ucl.utils.precisionEquals
 import app.moreo.ucl.utils.toRadians
 import kotlin.math.abs
@@ -23,7 +23,15 @@ import kotlin.math.pow
  * @param blue blue between 0 and 1
  * @param alpha alpha between 0 and 1
  */
-class SRGBColor @JvmOverloads constructor(var red: Float, var green: Float, var blue: Float, override var alpha: Float = 1f): Interpolatable<SRGBColor>, Copyable<SRGBColor> {
+class SRGBColor @JvmOverloads constructor(red: Float, green: Float, blue: Float, alpha: Float = 1f): Interpolatable<SRGBColor>, Copyable<SRGBColor> {
+
+    var red by BoundedFloat(red, 0f, 1f)
+
+    var green by BoundedFloat(green, 0f, 1f)
+
+    var blue by BoundedFloat(blue, 0f, 1f)
+
+    override var alpha by BoundedFloat(alpha, 0f, 1f)
 
     companion object {
         @JvmField
@@ -42,6 +50,16 @@ class SRGBColor @JvmOverloads constructor(var red: Float, var green: Float, var 
 
             return SRGBColor(red, green, blue)
         }
+
+        /**
+         * Converts a java.awt.Color to a SRGBColor
+         * @param color The color
+         * @return The SRGBColor
+         */
+        @JvmStatic
+        fun fromAWTColor(color: java.awt.Color): SRGBColor {
+            return SRGBColor(color.red, color.green, color.blue, color.alpha / 255f)
+        }
     }
 
     /**
@@ -55,13 +73,9 @@ class SRGBColor @JvmOverloads constructor(var red: Float, var green: Float, var 
      * @param blue blue between 0 and 255
      * @param alpha alpha between 0 and 1
      */
-    @JvmOverloads constructor(red: Short, green: Short, blue: Short, alpha: Float = 1f) : this(red / 255f, green / 255f, blue / 255f, alpha) {
-        if (minOf(red, green, blue) < 0 || maxOf(red, green, blue) > 255) throw GamutException("SRGB values must be between 0 and 255")
-    }
+    @JvmOverloads constructor(red: Short, green: Short, blue: Short, alpha: Float = 1f) : this(red / 255f, green / 255f, blue / 255f, alpha)
 
-    @JvmOverloads constructor(red: Int, green: Int, blue: Int, alpha: Float = 1f) : this(red / 255f, green / 255f, blue / 255f, alpha) {
-        if (minOf(red, green, blue) < 0 || maxOf(red, green, blue) > 255) throw GamutException("SRGB values must be between 0 and 255")
-    }
+    @JvmOverloads constructor(red: Int, green: Int, blue: Int, alpha: Float = 1f) : this(red / 255f, green / 255f, blue / 255f, alpha)
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : Color> toSpace(color: ColorType<T>): T {
@@ -133,7 +147,7 @@ class SRGBColor @JvmOverloads constructor(var red: Float, var green: Float, var 
     }
 
     override fun toString(): String {
-        return "RGBColor(red=$red, green=$green, blue=$blue, alpha=$alpha)"
+        return "sRGBColor(red=$red, green=$green, blue=$blue, alpha=$alpha)"
     }
 
     override fun rangeTo(other: Color): ColorInterpolation<SRGBColor> {
@@ -147,10 +161,6 @@ class SRGBColor @JvmOverloads constructor(var red: Float, var green: Float, var 
         return red.precisionEquals(otherSRGB.red) && green.precisionEquals(otherSRGB.green) && blue.precisionEquals(otherSRGB.blue) && alpha.precisionEquals(otherSRGB.alpha)
     }
 
-    fun toInt(): Int {
-        return (red * 255).toInt() shl 16 or ((green * 255).toInt() shl 8) or (blue * 255).toInt()
-    }
-
     override fun hashCode(): Int {
         var result = red.hashCode()
         result = 31 * result + green.hashCode()
@@ -161,5 +171,14 @@ class SRGBColor @JvmOverloads constructor(var red: Float, var green: Float, var 
 
     override fun copy(): SRGBColor {
         return SRGBColor(red, green, blue, alpha)
+    }
+
+    // Converter
+    fun toInt(): Int {
+        return (red * 255).toInt() shl 16 or ((green * 255).toInt() shl 8) or (blue * 255).toInt()
+    }
+
+    fun toAWTColor(): java.awt.Color {
+        return java.awt.Color(red, green, blue, alpha)
     }
 }

@@ -39,4 +39,6 @@ internal fun Float.remap(from1: Float, to1: Float, from2: Float, to2: Float): Fl
     return (this - from1) / (to1 - from1) * (to2 - from2) + from2
 }
 
+internal val MINIMUM_FLOAT_DELTA = Math.ulp(1f)
+
 internal const val LAB_DELTA = 6/29f
